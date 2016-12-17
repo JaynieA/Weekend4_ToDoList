@@ -24,6 +24,6 @@ We would recommend you spend some time thinking about how to approach this probl
 ###PRO MODE
 * [] Adjust the logic so that completed tasks are brought to the bottom of the page, where the remaining tasks left to complete are brought to the top of the list.
 
-####SUPER PRO MODE
+###SUPER PRO MODE
 * [] Adjust the logic, app performance, and database schema to match that of the following ERD:
 ![ERD](public/images/super-pro-mode-ERD-model.png?raw=true "ERD")
