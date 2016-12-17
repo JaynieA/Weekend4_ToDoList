@@ -17,7 +17,9 @@ var completeTask = function() {
     url: '/task',
     data: objectToSend,
     success: function(response) {
-      console.log(response);
+      var task_id = response;
+      //update appearance of completed task
+      updateCompletedAppearance(task_id);
       //getTasks();
     }, // end success
     error: function(err) {
@@ -25,6 +27,14 @@ var completeTask = function() {
     } // end error
   }); // end ajax
 }; // end completeTask
+
+var updateCompletedAppearance = function(num) {
+  console.log('in updateCompleteOnDOM:', num);
+  //select div of completed task using data attribute
+  var $completed = $('#tasksOut').find("[data-id='" + num + "']");
+  //change background color to green
+  $completed.css('background-color', 'green');
+}; // end updateCompleteOnDOM
 
 var createTask = function(){
   console.log('in createTask');

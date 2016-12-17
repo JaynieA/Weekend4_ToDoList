@@ -61,7 +61,7 @@ app.put('/task', function(req, res) {
     } else {
         console.log('connected to db on put route');
         client.query('UPDATE task SET completed = TRUE WHERE id = $1', [req.body.id]);
-        res.send(true);
+        res.send(req.body.id);
     } // end else
   }); // end pg connect
 }); // end put route
