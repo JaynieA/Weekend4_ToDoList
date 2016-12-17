@@ -19,7 +19,24 @@ app.listen(port, function() {
 //routes
 app.get('/task', function(req, res) {
   console.log('get route hit');
-  res.send('OK');
+  var tasks = [];
+  pg.connect(connStr, function(err, client, done) {
+    if (err) {
+      //if there is an error, log it
+      console.log('error:', err);
+    } else {
+      console.log('connected to db');
+      var query = client.query('SELECT name FROM task WHERE completed = FALSE');
+      query.on('row', function(row){
+        tasks.push(row);
+      }); // end query
+      query.on('end', function() {
+        //disconnect from database, send tasks to client
+        done();
+        res.send({tasks: tasks});
+      }); // end query
+    } // end else
+  }); // end pg connect
 }); // end get route
 
 app.post('/task', function(req, res) {
