@@ -1,6 +1,13 @@
 $(document).ready(function() {
   runGetRoute();
-  runPostRoute();
+
+  $('#addTaskButton').on('click', function() {
+    console.log('addTaskButton clicked');
+    var objectToSend = {
+      task: $('#taskIn').val()
+    }; // end objectToSend
+    runPostRoute(objectToSend);
+  }); // end addTaskButton
 });
 
 var runGetRoute = function() {
@@ -17,15 +24,12 @@ var runGetRoute = function() {
   }); // end ajax
 }; // end runGetRoute
 
-var runPostRoute = function() {
+var runPostRoute = function(object) {
   console.log('in runPostRoute');
-  var objectToSend = {
-    thing: "soup"
-  }; // end objectToSend
   $.ajax({
     type: 'POST',
     url: '/post',
-    data: objectToSend,
+    data: object,
     success: function(response) {
       console.log(response);
     }, // end success

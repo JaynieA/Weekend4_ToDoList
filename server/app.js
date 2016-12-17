@@ -22,5 +22,5 @@ app.get('/get', function(req, res) {
 
 app.post('/post', function(req, res) {
   console.log('post route hit');
-  res.send(req.body.thing);
+  res.send(req.body);
 }); // end post route
