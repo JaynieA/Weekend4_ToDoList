@@ -5,7 +5,7 @@ var path = require( 'path' );
 var bodyParser = require( 'body-parser' );
 var pg = require( 'pg' );
 
-var connStr = 'postgres://localhost:5432/Weekend4_ToDoList';
+var connStr = 'postgres://localhost:5432/Weekend4_toDoList';
 
 //middleware
 app.use(express.static('public'));
@@ -24,5 +24,14 @@ app.get('/task', function(req, res) {
 
 app.post('/task', function(req, res) {
   console.log('post route hit');
-  res.send(req.body);
+  pg.connect(connStr, function(err, client, done) {
+    if (err) {
+      //if there was an error, log it
+      console.log(err);
+    } else {
+      client.query('INSERT INTO task (name) VALUES ($1);', [req.body.task]);
+      //send true as a response
+      res.send(true);
+    } // end else
+  }); // end pg connect
 }); // end post route
