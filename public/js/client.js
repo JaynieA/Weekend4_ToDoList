@@ -1,8 +1,16 @@
 $(document).ready(function() {
   getTasks();
+  //event listeners
   $('#addTaskButton').on('click', createTask);
-
+  $(document).on('click', '.complete-task-btn', completeTask);
 }); // end doc ready
+
+var completeTask = function() {
+  console.log('in completeTask');
+  var task_id = $(this).closest('.task').data('id');
+  console.log('task to complete:', task_id);
+  updateTaskCompletion(task_id);
+}; // end completeTask
 
 var createTask = function(){
   console.log('addTaskButton clicked');
@@ -19,7 +27,7 @@ var displayTasks = function(array) {
   console.log('in displayTasks', array);
   $('#tasksOut').html('<h2>Tasks</h2>');
   for (var i = 0; i < array.length; i++) {
-    $('#tasksOut').append('<div class="task"></div>');
+    $('#tasksOut').append('<div class="task" data-id="' + array[i].id + '"></div>');
     var $taskDiv = $('#tasksOut').children().last();
     $taskDiv.append('<p class="task-name">' + array[i].name + '</p>');
     //append complete and delete buttons
@@ -59,3 +67,18 @@ var postTask = function(object) {
     } // end error
   }); // end ajax
 }; // end runPostRoute
+
+var updateTaskCompletion = function(num) {
+  console.log('in updateTaskCompletion');
+  $.ajax({
+    type: 'PUT',
+    url: '/task',
+    data: {id: num},
+    success: function(response) {
+      console.log(response);
+    }, // end success
+    error: function(err) {
+      console.log(err);
+    } // end error
+  }); // end ajax
+}; // end updateTaskCompletion

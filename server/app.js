@@ -25,8 +25,7 @@ app.get('/task', function(req, res) {
       //if there is an error, log it
       console.log('error:', err);
     } else {
-      console.log('connected to db');
-      var query = client.query('SELECT name FROM task WHERE completed = FALSE');
+      var query = client.query('SELECT id, name FROM task WHERE completed = FALSE');
       query.on('row', function(row){
         tasks.push(row);
       }); // end query
@@ -52,3 +51,8 @@ app.post('/task', function(req, res) {
     } // end else
   }); // end pg connect
 }); // end post route
+
+app.put('/task', function(req, res) {
+  console.log('put route hit');
+  res.send(req.body);
+}); // end put route
