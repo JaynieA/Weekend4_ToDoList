@@ -1,16 +1,21 @@
 $(document).ready(function() {
-  runGetRoute();
+  getTasks();
+  $('#addTaskButton').on('click', addTaskClicked);
 
-  $('#addTaskButton').on('click', function() {
-    console.log('addTaskButton clicked');
-    var objectToSend = {
-      task: $('#taskIn').val()
-    }; // end objectToSend
-    runPostRoute(objectToSend);
-  }); // end addTaskButton
-});
+}); // end doc ready
 
-var runGetRoute = function() {
+var addTaskClicked = function(){
+  console.log('addTaskButton clicked');
+  var objectToSend = {
+    task: $('#taskIn').val()
+  }; // end objectToSend
+  //post task to server for insertion into database
+  postTask(objectToSend);
+  //clear input value
+  $('#taskIn').val('');
+}; // end addTaskClicked
+
+var getTasks = function() {
   console.log('in runGetRoute');
   $.ajax({
     type: 'GET',
@@ -24,7 +29,7 @@ var runGetRoute = function() {
   }); // end ajax
 }; // end runGetRoute
 
-var runPostRoute = function(object) {
+var postTask = function(object) {
   console.log('in runPostRoute');
   $.ajax({
     type: 'POST',
