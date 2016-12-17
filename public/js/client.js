@@ -3,6 +3,7 @@ $(document).ready(function() {
   //event listeners
   $('#addTaskButton').on('click', createTask);
   $(document).on('click', '.complete-task-btn', completeTask);
+  $(document).on('click', '.delete-task-btn', deleteTask);
 }); // end doc ready
 
 var completeTask = function() {
@@ -22,6 +23,25 @@ var createTask = function(){
   //clear input value
   $('#taskIn').val('');
 }; // end addTaskClicked
+
+var deleteTask = function() {
+  console.log('in deleteTask');
+  var objectToSend = {
+    id: $(this).closest('.task').data('id')
+  }; // end objectToSend
+  $.ajax({
+    type: 'DELETE',
+    url: '/task',
+    data: objectToSend,
+    success: function(response) {
+      console.log(response);
+      getTasks();
+    }, // end success
+    error: function(err) {
+      console.log(err);
+    } // end error
+  }); // end ajax
+}; // end deleteTask
 
 var displayTasks = function(array) {
   console.log('in displayTasks', array);

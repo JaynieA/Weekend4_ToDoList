@@ -64,5 +64,18 @@ app.put('/task', function(req, res) {
         res.send(true);
     } // end else
   }); // end pg connect
-  res.send(req.body);
 }); // end put route
+
+app.delete('/task', function(req, res) {
+  console.log('delete route hit', req.body.id);
+  pg.connect(connStr, function(err, client, done) {
+    if (err) {
+      //if there was an error, log it
+      console.log(err);
+    } else {
+      console.log('connected to db on delete route');
+      client.query('DELETE FROM task WHERE id = $1', [req.body.id]);
+      res.send(true);
+    } // end else
+  }); // end pg connect
+}); // end delete route
