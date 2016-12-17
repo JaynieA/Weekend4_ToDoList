@@ -15,12 +15,12 @@ app.listen(port, function() {
 }); // end server listen
 
 //routes
-app.get('/get', function(req, res) {
+app.get('/task', function(req, res) {
   console.log('get route hit');
-  res.send('GET OK');
+  res.send('OK');
 }); // end get route
 
-app.post('/post', function(req, res) {
+app.post('/task', function(req, res) {
   console.log('post route hit');
   res.send(req.body);
 }); // end post route

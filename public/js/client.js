@@ -14,7 +14,7 @@ var runGetRoute = function() {
   console.log('in runGetRoute');
   $.ajax({
     type: 'GET',
-    url: '/get',
+    url: '/task',
     success: function(response) {
       console.log('get route success:', response);
     }, // end success
@@ -28,7 +28,7 @@ var runPostRoute = function(object) {
   console.log('in runPostRoute');
   $.ajax({
     type: 'POST',
-    url: '/post',
+    url: '/task',
     data: object,
     success: function(response) {
       console.log(response);
