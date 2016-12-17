@@ -34,6 +34,7 @@ var updateCompletedAppearance = function(num) {
   var $completed = $('#tasksOut').find("[data-id='" + num + "']");
   //change background color to green
   $completed.css('background-color', 'green');
+  $completed.find('button').hide();
 }; // end updateCompleteOnDOM
 
 var createTask = function(){
