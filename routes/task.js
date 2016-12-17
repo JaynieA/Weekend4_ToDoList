@@ -42,6 +42,7 @@ router.post('/', function(req, res) {
   }); // end pg connect
 }); // end post route
 
+//put route
 router.put('/', function(req, res) {
   console.log('put route hit, request:', req.body.id);
   pg.connect(connStr, function(err, client, done){
@@ -56,6 +57,7 @@ router.put('/', function(req, res) {
   }); // end pg connect
 }); // end put route
 
+//delete route
 router.delete('/', function(req, res) {
   console.log('delete route hit', req.body.id);
   pg.connect(connStr, function(err, client, done) {

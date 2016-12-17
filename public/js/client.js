@@ -78,8 +78,8 @@ var displayTasks = function(array) {
     var $taskDiv = $('#tasksOut').children().last();
     $taskDiv.append('<p class="task-name">' + array[i].name + '</p>');
     //append complete and delete buttons
-    $taskDiv.append('<button class="complete-task-btn">Complete</button>');
-    $taskDiv.append('<button class="delete-task-btn">Delete</button>');
+    $taskDiv.append('<button class="btn complete-task-btn">Complete</button>');
+    $taskDiv.append('<button class="btn delete-task-btn">Delete</button>');
   } // end for
 }; // end displayTasks
 
