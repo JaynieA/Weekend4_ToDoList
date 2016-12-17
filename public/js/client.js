@@ -76,6 +76,7 @@ var updateTaskCompletion = function(num) {
     data: {id: num},
     success: function(response) {
       console.log(response);
+      getTasks();
     }, // end success
     error: function(err) {
       console.log(err);
