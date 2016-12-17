@@ -20,7 +20,6 @@ var completeTask = function() {
       var task_id = response;
       //update appearance of completed task
       updateCompletedAppearance(task_id);
-      //getTasks();
     }, // end success
     error: function(err) {
       console.log(err);
@@ -58,8 +57,12 @@ var deleteTask = function() {
     url: '/task',
     data: objectToSend,
     success: function(response) {
-      console.log(response);
-      getTasks();
+      console.log('deleted id number:',response);
+      //store the id of the deleted task
+      var num = response;
+      //hide the deleted task from DOM using data attribute
+      var $deleted = $('#tasksOut').find("[data-id='" + num + "']");
+      $deleted.hide();
     }, // end success
     error: function(err) {
       console.log(err);
