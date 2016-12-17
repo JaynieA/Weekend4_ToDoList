@@ -2,8 +2,10 @@ var port = process.env.PORT || 3000;
 var express = require( 'express' );
 var app = express();
 var path = require( 'path' );
-var pg = require( 'pg' );
 var bodyParser = require( 'body-parser' );
+var pg = require( 'pg' );
+
+var connStr = 'postgres://localhost:5432/Weekend4_ToDoList';
 
 //middleware
 app.use(express.static('public'));
