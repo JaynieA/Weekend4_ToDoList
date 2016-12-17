@@ -8,13 +8,26 @@ $(document).ready(function() {
 
 var completeTask = function() {
   console.log('in completeTask');
-  var task_id = $(this).closest('.task').data('id');
-  console.log('task to complete:', task_id);
-  updateTaskCompletion(task_id);
+  var objectToSend = {
+    id: $(this).closest('.task').data('id')
+  }; // end objectToSend
+  //update task completion
+  $.ajax({
+    type: 'PUT',
+    url: '/task',
+    data: objectToSend,
+    success: function(response) {
+      console.log(response);
+      //getTasks();
+    }, // end success
+    error: function(err) {
+      console.log(err);
+    } // end error
+  }); // end ajax
 }; // end completeTask
 
 var createTask = function(){
-  console.log('addTaskButton clicked');
+  console.log('in createTask');
   var objectToSend = {
     task: $('#taskIn').val()
   }; // end objectToSend
@@ -22,7 +35,7 @@ var createTask = function(){
   postTask(objectToSend);
   //clear input value
   $('#taskIn').val('');
-}; // end addTaskClicked
+}; // end createTask
 
 var deleteTask = function() {
   console.log('in deleteTask');
@@ -57,7 +70,7 @@ var displayTasks = function(array) {
 }; // end displayTasks
 
 var getTasks = function() {
-  console.log('in runGetRoute');
+  console.log('in getTasks');
   $.ajax({
     type: 'GET',
     url: '/task',
@@ -69,10 +82,10 @@ var getTasks = function() {
       console.log('get route error:', err);
     } // end error
   }); // end ajax
-}; // end runGetRoute
+}; // end getTasks
 
 var postTask = function(object) {
-  console.log('in runPostRoute');
+  console.log('in postTask');
   $.ajax({
     type: 'POST',
     url: '/task',
@@ -86,20 +99,4 @@ var postTask = function(object) {
       console.log(err);
     } // end error
   }); // end ajax
-}; // end runPostRoute
-
-var updateTaskCompletion = function(num) {
-  console.log('in updateTaskCompletion');
-  $.ajax({
-    type: 'PUT',
-    url: '/task',
-    data: {id: num},
-    success: function(response) {
-      console.log(response);
-      getTasks();
-    }, // end success
-    error: function(err) {
-      console.log(err);
-    } // end error
-  }); // end ajax
-}; // end updateTaskCompletion
+}; // end postTask
