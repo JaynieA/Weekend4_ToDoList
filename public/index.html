@@ -8,9 +8,10 @@
     <title>To-Do List</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="js/client.js" charset="utf-8"></script>
+    <!-- FONTS AND LIBRARIES -->
     <link href="https://fonts.googleapis.com/css?family=Coming+Soon" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="/stylesheets/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="/stylesheets/css/style.css">
 </head>
 
@@ -26,6 +27,21 @@
             <h2 class="tasks-header">Tasks</h2>
         </div>
     </main>
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>delete task</p>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this task?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-modal btn-cancel"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+                <button type="button" class="btn btn-modal btn-confirm"><i class="fa fa-check" aria-hidden="true"></i>Confirm</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

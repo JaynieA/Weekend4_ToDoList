@@ -37,27 +37,36 @@ var createTask = function(e){
   $('#taskIn').val('');
 }; // end createTask
 
+var confirmDelete = function(){
+  console.log('in confirmDelete');
+  $('.modal').fadeIn();
+  return false;
+}; // end confirmDelete
+
 var deleteTask = function() {
   console.log('in deleteTask');
-  var objectToSend = {
-    id: $(this).closest('.task').data('id')
-  }; // end objectToSend
-  $.ajax({
-    type: 'DELETE',
-    url: '/task',
-    data: objectToSend,
-    success: function(response) {
-      console.log('deleted id number:',response);
-      //store the id of the deleted task
-      var num = response;
-      //hide the deleted task from DOM using data attribute
-      var $deleted = $('#tasksOut').find("[data-id='" + num + "']");
-      $deleted.hide();
-    }, // end success
-    error: function(err) {
-      console.log(err);
-    } // end error
-  }); // end ajax
+  //if user has confirmed that they want to delete, proceed
+  if (confirmDelete()) {
+    var objectToSend = {
+      id: $(this).closest('.task').data('id')
+    }; // end objectToSend
+    $.ajax({
+      type: 'DELETE',
+      url: '/task',
+      data: objectToSend,
+      success: function(response) {
+        console.log('deleted id number:',response);
+        //store the id of the deleted task
+        var num = response;
+        //hide the deleted task from DOM using data attribute
+        var $deleted = $('#tasksOut').find("[data-id='" + num + "']");
+        $deleted.hide();
+      }, // end success
+      error: function(err) {
+        console.log(err);
+      } // end error
+    }); // end ajax
+  }
 }; // end deleteTask
 
 var displayTasks = function(array) {

@@ -134,4 +134,80 @@ input {
   display: inline;
   font-size: 20px; }
 
+.modal {
+  font-family: 'Roboto', sans-serif;
+  background-color: #fff;
+  position: fixed;
+  top: 15%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow-y: visible;
+  outline: 0;
+  transition: transform .3s ease-out,-webkit-transform .3s ease-out,-o-transform .3s ease-out;
+  max-width: 600px;
+  max-height: 271px;
+  margin: 30px auto;
+  transform: translate(0, 0);
+  border-radius: .3em; }
+  .modal i {
+    margin-right: 8px; }
+  .modal button {
+    background-color: transparent;
+    transition: all 0.2s ease; }
+    .modal button i {
+      transition: all 0.2s ease; }
+    .modal button.btn-cancel {
+      border: 2px solid #DA6667;
+      color: #DA6667; }
+      .modal button.btn-cancel i {
+        color: #DA6667; }
+      .modal button.btn-cancel:hover {
+        background-color: #DA6667; }
+    .modal button.btn-confirm {
+      border: 2px solid #80D087;
+      color: #80D087; }
+      .modal button.btn-confirm i {
+        color: #80D087; }
+      .modal button.btn-confirm:hover {
+        background-color: #80D087; }
+    .modal button:hover {
+      color: #fff; }
+      .modal button:hover i {
+        color: #fff; }
+  .modal .modal-content {
+    position: relative;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: .3rem;
+    outline: 0; }
+    .modal .modal-content p {
+      margin: 0px; }
+  .modal .modal-header {
+    padding: 15px;
+    font-size: 25px;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #DA6667; }
+    .modal .modal-header p {
+      text-transform: uppercase;
+      text-align: center;
+      color: #fff; }
+  .modal .modal-body {
+    position: relative;
+    padding: 15px;
+    min-height: 103px; }
+    .modal .modal-body p {
+      font-size: 18px;
+      text-align: center;
+      padding-top: 40px; }
+  .modal .modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+    padding-bottom: 20px; }
+
 /*# sourceMappingURL=style.css.map */
