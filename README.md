@@ -37,7 +37,7 @@ We would recommend you spend some time thinking about how to approach this probl
 
 ###SUPER PRO MODE
 * [] Adjust the logic, app performance, and database schema to match that of the following ERD:
-![ERD](public/images/super-pro-mode-ERD-model.png?raw=true "ERD")
+![ERD](public/images/to-do.png?raw=true "ERD")
 
 ###STRETCH GOALS
 * [] Add server-side validation
