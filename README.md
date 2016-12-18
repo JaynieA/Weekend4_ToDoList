@@ -33,7 +33,7 @@ We would recommend you spend some time thinking about how to approach this probl
 * [x] In whatever fashion you would like, create an 'are you sure: yes / no' option when deleting a task. Once again, you can interrupt this however you would like.
 
 ###PRO MODE
-* [] Adjust the logic so that completed tasks are brought to the bottom of the page, where the remaining tasks left to complete are brought to the top of the list.
+* [x] Adjust the logic so that completed tasks are brought to the bottom of the page, where the remaining tasks left to complete are brought to the top of the list.
 
 ###SUPER PRO MODE
 * [] Adjust the logic, app performance, and database schema to match that of the following ERD:

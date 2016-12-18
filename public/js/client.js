@@ -155,6 +155,10 @@ var updateCompletedAppearance = function(num) {
   //change completed button to checked icon
   $completed.find('.complete-task-btn').addClass('disabled');
   $completed.find('.complete-task-btn').html('<i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i>');
+  //clone completed task, remove original from DOM, append cloned to bottom of #tasksOut
+  $clone_completed = $completed.clone();
+  $completed.remove();
+  $('#tasksOut').append($clone_completed);
 }; // end updateCompleteOnDOM
 
 var validateTaskIn = function() {
