@@ -1,0 +1,23 @@
+//FONTS
+$mainFont: 'Coming Soon', cursive;
+
+//COLORS
+$white: #fff;
+$mainFontColor: #515150;
+//$mainFontColor: #fff;
+$accentColor: #81CFD1;
+
+$backgroundColor: #51576F;
+$containerColor: #E6E8E7;
+
+$outlineColor: #AAB3C2;
+
+$deleteRed: #DA6667;
+
+//MIXINS
+@mixin user-select($type) {
+  -webkit-user-select: $type;
+  -moz-user-select: $type;
+  -ms-user-select: $type;
+  user-select: $type;
+}
