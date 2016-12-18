@@ -8,17 +8,21 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="js/client.js" charset="utf-8"></script>
   <link href="https://fonts.googleapis.com/css?family=Coming+Soon" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="/stylesheets/css/font-awesome.min.css"> -->
   <link rel="stylesheet" href="/stylesheets/css/style.css">
 </head>
 <body>
-  <h1>Weekend 4 To-Do List</h1>
-  <form>
-    <label for="taksIn">Task:</label>
-    <input id="taskIn" type="text" placeholder="task">
-    <button id="addTaskButton" type="button">Add Task</button>
-  </form>
-  <div id="tasksOut">
-    <h2>Tasks</h2>
-  </div>
+
+  <main class="container">
+    <form>
+      <label for="taksIn">Add Task:</label>
+      <input id="taskIn" type="text" placeholder="task">
+      <button id="addTaskButton" type="button" class="btn btn-circle"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
+    </form>
+    <div id="tasksOut">
+      <h2 class="tasks-header">Tasks</h2>
+    </div>
+  </main>
 </body>
 </html>

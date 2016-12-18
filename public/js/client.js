@@ -32,8 +32,9 @@ var updateCompletedAppearance = function(num) {
   //select div of completed task using data attribute
   var $completed = $('#tasksOut').find("[data-id='" + num + "']");
   //change background color to green
-  $completed.css('background-color', 'green');
-  $completed.find('button').hide();
+  //TODO: change appearance
+  //$completed.css('background-color', 'green');
+  $completed.find('.complete-task-btn').html('<i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i>');
 }; // end updateCompleteOnDOM
 
 var createTask = function(){
@@ -72,14 +73,21 @@ var deleteTask = function() {
 
 var displayTasks = function(array) {
   console.log('in displayTasks', array);
-  $('#tasksOut').html('<h2>Tasks</h2>');
+  $('#tasksOut').html('<h2 class="tasks-header">Tasks</h2>');
   for (var i = 0; i < array.length; i++) {
     $('#tasksOut').append('<div class="task" data-id="' + array[i].id + '"></div>');
     var $taskDiv = $('#tasksOut').children().last();
+
+    //append delete buttons
+    $taskDiv.append('<button class="btn complete-task-btn btn-sm"></button>');
+    $completeButton = $taskDiv.children().last();
+    $completeButton.append('<i class="fa fa-square-o fa-lg" aria-hidden="true"></i>');
+    //append task name
     $taskDiv.append('<p class="task-name">' + array[i].name + '</p>');
-    //append complete and delete buttons
-    $taskDiv.append('<button class="btn complete-task-btn">Complete</button>');
-    $taskDiv.append('<button class="btn delete-task-btn">Delete</button>');
+    //append complete buttons
+    $taskDiv.append('<button class="btn delete-task-btn btn-sm"></button>');
+    $deleteButton = $taskDiv.children().last();
+    $deleteButton.append('<i class="fa fa-trash fa-lg" aria-hidden="true"></i>');
   } // end for
 }; // end displayTasks
 
