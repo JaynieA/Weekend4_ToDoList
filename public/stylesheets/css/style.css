@@ -71,13 +71,16 @@ input {
 .btn-circle {
   border-radius: 50%;
   padding: 6px 8px;
-  margin: -2px 0 0 0; }
+  margin: -2px 0 0 5px; }
   .btn-circle i {
     margin-left: 1px;
     transition: all 0.2s ease; }
 
 .btn-sm {
   padding: 5px 7px; }
+
+.btn-xs {
+  padding: 2px 4px; }
 
 .btn-text {
   color: #fff; }
@@ -126,7 +129,17 @@ input {
   #peopleSelect label {
     margin-left: 10px; }
   #peopleSelect button {
-    margin: -2px 0 0 8px; }
+    margin: -2px -5px 0 8px; }
+  #peopleSelect .btn-delete-select {
+    margin: 0 2px;
+    background-color: #DA6667; }
+    #peopleSelect .btn-delete-select:last-of-type {
+      margin-right: -10px; }
+    #peopleSelect .btn-delete-select:hover, #peopleSelect .btn-delete-select:focus {
+      border-color: #DA6667;
+      background-color: transparent; }
+      #peopleSelect .btn-delete-select:hover i, #peopleSelect .btn-delete-select:focus i {
+        color: #DA6667; }
   #peopleSelect .select-group {
     display: inline; }
     #peopleSelect .select-group select {
@@ -146,8 +159,6 @@ input {
       border-radius: .25rem; }
       #peopleSelect .select-group select:first-of-type {
         margin-right: -3px; }
-      #peopleSelect .select-group select:last-of-type {
-        margin-right: -5px; }
 
 #tasksOut {
   margin: 30px auto 30px auto;

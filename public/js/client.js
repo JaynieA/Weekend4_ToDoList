@@ -4,18 +4,59 @@ $(document).ready(function() {
 
 var addPeopleSelect = function(){
   console.log('in addpeopleSelect');
-  //TODO: populate these this select with options (people) -- completed
-  //TODO: only show assign to more if there are more to be selected
-  //TODO: disable people who have been selected already
-  $('.select-group').append('<select class="people-select"><option value="" selected disabled>Choose a Person:</option></select>');
+  $('.select-group').append('<select class="people-select"></select>');
+  var $newSelect = $('.select-group').children().last();
+  $newSelect.append('<option value="" selected disabled>Choose a Person:</option>');
+  $('.select-group').append('<button type="button"></button>');
+  var $newButton = $('.select-group').children().last();
+  $newButton.addClass('btn btn-xs btn-delete-select');
+  $newButton.append('<i class="fa fa-times" aria-hidden="true"></i>');
   getPeople();
-  validatePeopleSelects();
+  controlAssignButtonVisibility();
 }; // end addpeopleSelect
 
-var validatePeopleSelects = function(){
-  console.log('in validatePeopleSelects');
-  var numItems = $('.people-select').length;
-}; // end validatePeopleSelects
+var disableSelectedPeople = function(){
+  console.log('in disableSelectedPeople');
+  var numSelects = $('.people-select').length;
+  //if more than one select, continue
+  if (numSelects > 1) {
+    var $lastSelectCreated = $('.select-group .people-select:last');
+    var selectedValues = [];
+    //get values of all selected names and push into array
+    $('select.people-select').each(function() {
+      selectedValues.push($(this).val());
+    }); // end each select
+    //disable all options on most recently added select with values matching those in array
+    $(".people-select:last option").each(function() {
+      var $thisOption = $(this);
+      for (var i = 0; i < selectedValues.length; i++) {
+        var valueToCompare = selectedValues[i];
+        console.log(valueToCompare);
+        if($thisOption.val() == valueToCompare) {
+            $thisOption.attr("disabled", "disabled");
+        } // end if
+      } // end for
+    }); // end each
+  } // end if
+}; // end disableSelectedPeople
+
+var controlAssignButtonVisibility = function(){
+  console.log('in controlAssignButtonVisibility');
+  //get number of selects on dom after adding
+  var numSelects = $('.people-select').length;
+  console.log('Number of Selects:', numSelects);
+  //get number people by counting the number of options in the first select
+  var numOptions = $('.select-group').children().first().find('option').length - 1;
+  console.log('Number of options in select:',numOptions);
+  //If Number of Selects is >= Number of people, hide 'Assign to More' button
+  if (numSelects >= numOptions) {
+    $('.btn-add-people-selects').hide();
+    $('#addTaskButton').css('margin-left','10px');
+  } else if (numSelects < numOptions) {
+    $('.btn-add-people-selects').show();
+    $('#addTaskButton').css('margin-left','5px');
+  } // end else/if
+}; // end controlAssignButtonVisibility
 
 var checkForTasks = function(array) {
   console.log('in checkForTasks');
@@ -63,6 +104,15 @@ var createTask = function(e){
   //clear input value
   $('#taskIn').val('');
 }; // end createTask
+
+var deletePeopleSelect = function(){
+  console.log('in deletePeopleSelect');
+  //remove the closest select
+  $(this).prev().remove();
+  //remove the button itself
+  $(this).remove();
+  controlAssignButtonVisibility();
+}; // end deletePeopleSelect
 
 var deleteTask = function(object) {
   console.log('in deleteTask');
@@ -169,6 +219,8 @@ var init = function() {
   $(document).on('click', '.complete-task-btn', completeTask);
   $(document).on('click', '.delete-task-btn', getConfirmation);
   $(document).on('click', '.btn-add-people-selects', addPeopleSelect);
+  $(document).on('click', '.btn-delete-select', deletePeopleSelect);
+  $(document).on('mouseover', '.people-select', disableSelectedPeople);
 }; // end init
 
 var postTask = function(object) {
