@@ -5,6 +5,9 @@ var pg = require( 'pg' );
 
 var connStr = 'postgres://localhost:5432/Weekend4_toDoList';
 
+//TODO: validate on server side
+//TODO: make sure all done() functions are running on routes.
+
 //get route
 router.get('/', function(req, res) {
   console.log('get route hit');

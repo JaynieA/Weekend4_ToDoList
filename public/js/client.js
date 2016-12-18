@@ -1,9 +1,7 @@
+//TODO: disable buttons that have already been updated/completed from being clicked again
+
 $(document).ready(function() {
-  getTasks();
-  //event listeners
-  $('#addTaskButton').on('click', createTask);
-  $(document).on('click', '.complete-task-btn', completeTask);
-  $(document).on('click', '.delete-task-btn', deleteTask);
+  init();
 }); // end doc ready
 
 var completeTask = function() {
@@ -27,23 +25,16 @@ var completeTask = function() {
   }); // end ajax
 }; // end completeTask
 
-var updateCompletedAppearance = function(num) {
-  console.log('in updateCompleteOnDOM:', num);
-  //select div of completed task using data attribute
-  var $completed = $('#tasksOut').find("[data-id='" + num + "']");
-  //change background color to green
-  //TODO: change appearance
-  //$completed.css('background-color', 'green');
-  $completed.find('.complete-task-btn').html('<i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i>');
-}; // end updateCompleteOnDOM
-
-var createTask = function(){
+var createTask = function(e){
+  e.preventDefault();
   console.log('in createTask');
-  var objectToSend = {
-    task: $('#taskIn').val()
-  }; // end objectToSend
-  //post task to server for insertion into database
-  postTask(objectToSend);
+  if (validateTaskIn()){
+    var objectToSend = {
+      task: $('#taskIn').val()
+    }; // end objectToSend
+    //post task to server for insertion into database
+    postTask(objectToSend);
+  } // end if
   //clear input value
   $('#taskIn').val('');
 }; // end createTask
@@ -77,7 +68,6 @@ var displayTasks = function(array) {
   for (var i = 0; i < array.length; i++) {
     $('#tasksOut').append('<div class="task" data-id="' + array[i].id + '"></div>');
     var $taskDiv = $('#tasksOut').children().last();
-
     //append delete buttons
     $taskDiv.append('<button class="btn complete-task-btn btn-sm"></button>');
     $completeButton = $taskDiv.children().last();
@@ -106,6 +96,14 @@ var getTasks = function() {
   }); // end ajax
 }; // end getTasks
 
+var init = function() {
+  console.log('in init');
+  getTasks();
+  //event listeners
+  $(document).on('click', '.complete-task-btn', completeTask);
+  $(document).on('click', '.delete-task-btn', deleteTask);
+}; // end init
+
 var postTask = function(object) {
   console.log('in postTask');
   $.ajax({
@@ -114,6 +112,8 @@ var postTask = function(object) {
     data: object,
     success: function(response) {
       console.log('POST RESPONSE:',response);
+      //reset task input validation alert appearance
+      $('#taskIn').removeClass('bad-input');
       //get and display new tasks
       getTasks();
     }, // end success
@@ -122,3 +122,22 @@ var postTask = function(object) {
     } // end error
   }); // end ajax
 }; // end postTask
+
+var updateCompletedAppearance = function(num) {
+  console.log('in updateCompleteOnDOM:', num);
+  //select div of completed task using data attribute
+  var $completed = $('#tasksOut').find("[data-id='" + num + "']");
+  //change completed button to checked icon
+  $completed.find('.complete-task-btn').html('<i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i>');
+}; // end updateCompleteOnDOM
+
+var validateTaskIn = function() {
+  //validate input: return false if empty, else true
+  console.log('in validateTaskIn');
+  if ($('#taskIn').val() === "") {
+    $('#taskIn').addClass('bad-input');
+    return false;
+  } else {
+    return true;
+  } // end else
+}; // end validateTaskIn
