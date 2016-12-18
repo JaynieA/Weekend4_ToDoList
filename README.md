@@ -22,11 +22,7 @@ Here are the specific components for the challenge:
 * [x] When a task is complete, its visual representation should change on the front end (for example, the background of the task container could change from gray to green, as well as the complete option 'checked off'. Each of these are accomplished in CSS, but will need to hook into logic to know whether or not the task is complete)
 * [x] Whether or not a task is complete should also be stored in the database.
 * [x] Deleting a task should remove it both from the Front End as well as the Database.
-
 * [x] Make sure that you also show us your best styling chops. We encourage you to try and write pure CSS rather than use Bootstrap.
-
-We would recommend you spend some time thinking about how to approach this problem. Think through all the logic that will be needed prior to writing any code. Take your time, relax, remember that impostor syndrome is real, and that you are capable of knocking this out of the park!
-
 * [x] Additionally, please include some way to recreate your initial database schema. This can be a .sql file with `CREATE TABLE` statements or you can create your schema automatically when your app loads.
 
 ###HARD MODE
