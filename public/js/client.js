@@ -15,39 +15,12 @@ var addPeopleSelect = function(){
   controlAssignButtonVisibility();
 }; // end addpeopleSelect
 
-var disableSelectedPeople = function(){
-  console.log('in disableSelectedPeople');
-  var numSelects = $('.people-select').length;
-  //if more than one select, continue
-  if (numSelects > 1) {
-    var $lastSelectCreated = $('.select-group .people-select:last');
-    var selectedValues = [];
-    //get values of all selected names and push into array
-    $('select.people-select').each(function() {
-      selectedValues.push($(this).val());
-    }); // end each select
-    //disable all options on most recently added select with values matching those in array
-    $(".people-select:last option").each(function() {
-      var $thisOption = $(this);
-      for (var i = 0; i < selectedValues.length; i++) {
-        var valueToCompare = selectedValues[i];
-        console.log(valueToCompare);
-        if($thisOption.val() == valueToCompare) {
-            $thisOption.attr("disabled", "disabled");
-        } // end if
-      } // end for
-    }); // end each
-  } // end if
-}; // end disableSelectedPeople
-
 var controlAssignButtonVisibility = function(){
   console.log('in controlAssignButtonVisibility');
   //get number of selects on dom after adding
   var numSelects = $('.people-select').length;
-  console.log('Number of Selects:', numSelects);
   //get number people by counting the number of options in the first select
   var numOptions = $('.select-group').children().first().find('option').length - 1;
-  console.log('Number of options in select:',numOptions);
   //If Number of Selects is >= Number of people, hide 'Assign to More' button
   if (numSelects >= numOptions) {
     $('.btn-add-people-selects').hide();
@@ -64,7 +37,9 @@ var checkForTasks = function(array) {
   //Else, display tasks
   if (array.length === 0) {
     $('#tasksOut h2').text('You are all caught up!');
-    $('#tasksOut').append('<img class="tasks-complete-img" src="images/hero.jpg" alt="You are a hero">');
+    $('#tasksOut').append('<img src="images/hero.jpg" alt="You are a hero">');
+    var $img = $('#tasksOut').children().last();
+    $img.addClass('tasks-complete-img');
   } else {
     displayTasks(array);
   } // end else
@@ -94,10 +69,22 @@ var completeTask = function() {
 var createTask = function(e){
   e.preventDefault();
   console.log('in createTask');
+  var people = [];
+  //get values of all selected names
+  $('.people-select').each(function() {
+    //split string to get id number from beginning of value
+    var person = $(this).val();
+    var result = person.split("-")[0];
+    //push result into people array
+    people.push(result);
+  }); // end each select
+  console.log('people array:',people);
   if (validateTaskIn()){
     var objectToSend = {
-      task: $('#taskIn').val()
+      task: $('#taskIn').val(),
+      people: people
     }; // end objectToSend
+    console.log(objectToSend);
     //post task to server for insertion into database
     postTask(objectToSend);
   } // end if
@@ -132,6 +119,30 @@ var deleteTask = function(object) {
       } // end error
     }); // end ajax
 }; // end deleteTask
+
+var disableSelectedPeople = function(){
+  console.log('in disableSelectedPeople');
+  var numSelects = $('.people-select').length;
+  //if more than one select, continue
+  if (numSelects > 1) {
+    var $lastSelectCreated = $('.select-group .people-select:last');
+    var selectedValues = [];
+    //get values of all selected names and push into array
+    $('select.people-select').each(function() {
+      selectedValues.push($(this).val());
+    }); // end each select
+    //disable all options on most recently added select with values matching those in array
+    $(".people-select:last option").each(function() {
+      var $thisOption = $(this);
+      for (var i = 0; i < selectedValues.length; i++) {
+        var valueToCompare = selectedValues[i];
+        if($thisOption.val() == valueToCompare) {
+            $thisOption.attr("disabled", "disabled");
+        } // end if
+      } // end for
+    }); // end each
+  } // end if
+}; // end disableSelectedPeople
 
 var displayPeople = function(array){
   console.log('in displayPeople');
@@ -168,7 +179,6 @@ var getConfirmation = function() {
   var objectToSend = {
     id: $(this).closest('.task').data('id')
   }; // end objectToSend
-  console.log(objectToSend);
   //fade in confirmation popup
   $('.modal').fadeIn();
   //fade out modal if cancel button clicked
@@ -228,9 +238,9 @@ var postTask = function(object) {
   $.ajax({
     type: 'POST',
     url: '/task',
-    data: object,
+    data: JSON.stringify(object),
+    contentType: 'application/json',
     success: function(response) {
-      console.log('POST RESPONSE:',response);
       //reset task input validation alert appearance
       $('#taskIn').removeClass('bad-input');
       //get and display new tasks
