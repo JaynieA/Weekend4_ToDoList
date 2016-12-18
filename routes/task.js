@@ -5,9 +5,6 @@ var pg = require( 'pg' );
 
 var connStr = 'postgres://localhost:5432/Weekend4_toDoList';
 
-//TODO: validate on server side
-//TODO: make sure all done() functions are running on routes.
-
 //get route
 router.get('/', function(req, res) {
   console.log('get route hit');
@@ -17,7 +14,7 @@ router.get('/', function(req, res) {
       //if there is an error, log it
       console.log('error:', err);
     } else {
-      var query = client.query('SELECT id, name FROM task WHERE completed = FALSE');
+      var query = client.query('SELECT id, name FROM task WHERE completed = FALSE ORDER BY id ASC');
       query.on('row', function(row){
         tasks.push(row);
       }); // end query
@@ -39,6 +36,7 @@ router.post('/', function(req, res) {
       console.log(err);
     } else {
       client.query('INSERT INTO task (name) VALUES ($1);', [req.body.task]);
+      done();
       //send true as a response
       res.send(true);
     } // end else
@@ -55,6 +53,7 @@ router.put('/', function(req, res) {
     } else {
         console.log('connected to db on put route');
         client.query('UPDATE task SET completed = TRUE WHERE id = $1', [req.body.id]);
+        done();
         res.send(req.body.id);
     } // end else
   }); // end pg connect
@@ -70,6 +69,7 @@ router.delete('/', function(req, res) {
     } else {
       console.log('connected to db on delete route');
       client.query('DELETE FROM task WHERE id = $1', [req.body.id]);
+      done();
       res.send(req.body.id);
     } // end else
   }); // end pg connect

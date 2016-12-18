@@ -104,6 +104,13 @@ input {
     .complete-task-btn:hover:hover i, .complete-task-btn:focus:hover i {
       color: #515150;
       transform: scale(1.5, 1.5); }
+  .complete-task-btn.disabled {
+    cursor: default; }
+    .complete-task-btn.disabled:hover, .complete-task-btn.disabled:focus, .complete-task-btn.disabled:active:focus {
+      color: #515150; }
+      .complete-task-btn.disabled:hover i, .complete-task-btn.disabled:focus i, .complete-task-btn.disabled:active:focus i {
+        color: #515150;
+        transform: scale(1, 1); }
 
 #tasksOut {
   margin: 30px auto 30px auto;

@@ -1,5 +1,3 @@
-//TODO: disable buttons that have already been updated/completed from being clicked again
-
 $(document).ready(function() {
   init();
 }); // end doc ready
@@ -128,6 +126,7 @@ var updateCompletedAppearance = function(num) {
   //select div of completed task using data attribute
   var $completed = $('#tasksOut').find("[data-id='" + num + "']");
   //change completed button to checked icon
+  $completed.find('.complete-task-btn').addClass('disabled');
   $completed.find('.complete-task-btn').html('<i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i>');
 }; // end updateCompleteOnDOM
 

@@ -122,6 +122,18 @@ input {
       }
     }
   }
+  &.disabled {
+    cursor: default;
+    &:hover,
+    &:focus,
+    &:active:focus {
+      color: $mainFontColor;
+      i {
+        color: $mainFontColor;
+        transform: scale(1.0, 1.0);
+      }
+    }
+  }
 }
 // ----- LAYOUT----- //
   //TASKS

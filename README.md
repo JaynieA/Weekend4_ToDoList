@@ -40,5 +40,5 @@ We would recommend you spend some time thinking about how to approach this probl
 ![ERD](public/images/super-pro-mode-ERD-model.png?raw=true "ERD")
 
 ###STRETCH GOALS
-* [] Server-side input validation
+* [] Add server-side validation
 * [] Host app on Heroku
