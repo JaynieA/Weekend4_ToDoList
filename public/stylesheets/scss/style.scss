@@ -1,7 +1,7 @@
 @import "settings";
-//GLOBALS
+
+// ----- GLOBALS ----- //
 html, body {
-  //background:url(https://raw.github.com/mmoustafa/Chalkboard/master/img/bg.png);
   background-color: $backgroundColor;
   font-family: $mainFont;
   color: $mainFontColor;
@@ -16,9 +16,6 @@ html, body {
 h1 {
   text-align: center;
   font-size: 50px;
-}
-form {
-  //text-align: center;
 }
 label {
   display: inline-block;
@@ -38,7 +35,7 @@ input {
   border: 1px solid rgba(0,0,0,.15);
   border-radius: .25rem;
 }
-//BUTTONS
+// ----- BUTTONS ----- //
 .btn {
   background-color: $accentColor;
   display: inline-block;
@@ -72,8 +69,12 @@ input {
 }
 .btn-circle {
   border-radius: 50%;
-  padding: 5px 8px;
-  margin-top: -2px;
+  padding: 6px 8px;
+  margin: -2px 0 0 0;
+  i {
+    margin-left: 1px;
+    transition: all 0.2s ease;
+  }
 }
 .btn-sm {
   padding: 5px 7px;
@@ -99,6 +100,7 @@ input {
   border: 2px solid transparent;
   i {
     color: $mainFontColor;
+    transform: all 0.2s ease;
   }
   &:hover,
   &:focus {
@@ -115,7 +117,8 @@ input {
     }
   }
 }
-//TASKS
+// ----- LAYOUT----- //
+  //TASKS
 #tasksOut {
   margin: 30px auto 30px auto;
   border: 2px solid $outlineColor;
@@ -137,4 +140,3 @@ input {
   display: inline;
   font-size: 20px;
 }
-//LAYOUT
