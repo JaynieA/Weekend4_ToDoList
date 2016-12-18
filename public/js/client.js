@@ -2,6 +2,18 @@ $(document).ready(function() {
   init();
 }); // end doc ready
 
+var checkForTasks = function(array) {
+  console.log('in checkForTasks');
+  //If there are no incomplete tasks, tell user they are all caught up.
+  //Else, display tasks
+  if (array.length === 0) {
+    $('#tasksOut h2').text('You are all caught up!');
+    $('#tasksOut').append('<img class="tasks-complete-img" src="images/hero.jpg" alt="You are a hero">');
+  } else {
+    displayTasks(array);
+  } // end else
+}; // end checkForTasks
+
 var completeTask = function() {
   console.log('in completeTask');
   var objectToSend = {
@@ -37,25 +49,13 @@ var createTask = function(e){
   $('#taskIn').val('');
 }; // end createTask
 
-var confirmDelete = function(){
-  console.log('in confirmDelete');
-  $('.modal').fadeIn();
-  return false;
-}; // end confirmDelete
-
-var deleteTask = function() {
+var deleteTask = function(object) {
   console.log('in deleteTask');
-  //if user has confirmed that they want to delete, proceed
-  if (confirmDelete()) {
-    var objectToSend = {
-      id: $(this).closest('.task').data('id')
-    }; // end objectToSend
     $.ajax({
       type: 'DELETE',
       url: '/task',
-      data: objectToSend,
+      data: object,
       success: function(response) {
-        console.log('deleted id number:',response);
         //store the id of the deleted task
         var num = response;
         //hide the deleted task from DOM using data attribute
@@ -66,7 +66,6 @@ var deleteTask = function() {
         console.log(err);
       } // end error
     }); // end ajax
-  }
 }; // end deleteTask
 
 var displayTasks = function(array) {
@@ -88,6 +87,25 @@ var displayTasks = function(array) {
   } // end for
 }; // end displayTasks
 
+var getConfirmation = function() {
+  console.log('in getConfirmation');
+  var objectToSend = {
+    id: $(this).closest('.task').data('id')
+  }; // end objectToSend
+  console.log(objectToSend);
+  //fade in confirmation popup
+  $('.modal').fadeIn();
+  //fade out modal if cancel button clicked
+  $('.btn-cancel').on('click', function(){
+    $('.modal').fadeOut();
+  }); // end .btn-cancel click
+  //proceed with delete if confirm clicked
+  $('.btn-confirm').on('click', function() {
+      $('.modal').fadeOut();
+      deleteTask(objectToSend);
+  }); // end .btn-confirm click
+}; // end getConfirmation
+
 var getTasks = function() {
   console.log('in getTasks');
   $.ajax({
@@ -95,7 +113,7 @@ var getTasks = function() {
     url: '/task',
     success: function(response) {
       console.log('get route success:', response);
-      displayTasks(response.tasks);
+      checkForTasks(response.tasks);
     }, // end success
     error: function(err) {
       console.log('get route error:', err);
@@ -108,7 +126,7 @@ var init = function() {
   getTasks();
   //event listeners
   $(document).on('click', '.complete-task-btn', completeTask);
-  $(document).on('click', '.delete-task-btn', deleteTask);
+  $(document).on('click', '.delete-task-btn', getConfirmation);
 }; // end init
 
 var postTask = function(object) {
