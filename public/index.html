@@ -20,13 +20,23 @@
     <main class="container">
         <form id="addTaskForm" onsubmit="createTask(event)">
             <label for="taskIn">Add Task:</label>
-            <input id="taskIn" type="text" placeholder="add a task...">
+            <input id="taskIn" type="text" placeholder="add a task..." maxlength="28">
+
+            <div id="peopleSelect">
+                <label>Assign To:</label>
+                <div class="select-group">
+                    <select class="people-select">
+                        <option value="" selected disabled>Choose a Person:</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-sm btn-text btn-add-people-selects"><i class="fa fa-user" aria-hidden="true"></i>Assign To More</button>
+            </div>
             <button id="addTaskButton" type="submit" class="btn btn-circle"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
         </form>
         <div id="tasksOut">
             <h2 class="tasks-header">Tasks</h2>
         </div>
-        
+
     </main>
     <div class="modal">
         <div class="modal-content">

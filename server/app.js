@@ -3,9 +3,6 @@ var express = require( 'express' );
 var app = express();
 var path = require( 'path' );
 var bodyParser = require( 'body-parser' );
-var pg = require( 'pg' );
-
-var connStr = 'postgres://localhost:5432/Weekend4_toDoList';
 
 //middleware
 app.use(express.static('public'));
@@ -19,3 +16,6 @@ app.listen(port, function() {
 //routes
 var task = require('../routes/task');
 app.use('/task', task);
+
+var people = require('../routes/people');
+app.use('/people', people);

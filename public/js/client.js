@@ -2,6 +2,21 @@ $(document).ready(function() {
   init();
 }); // end doc ready
 
+var addPeopleSelect = function(){
+  console.log('in addpeopleSelect');
+  //TODO: populate these this select with options (people) -- completed
+  //TODO: only show assign to more if there are more to be selected
+  //TODO: disable people who have been selected already
+  $('.select-group').append('<select class="people-select"><option value="" selected disabled>Choose a Person:</option></select>');
+  getPeople();
+  validatePeopleSelects();
+}; // end addpeopleSelect
+
+var validatePeopleSelects = function(){
+  console.log('in validatePeopleSelects');
+  var numItems = $('.people-select').length;
+}; // end validatePeopleSelects
+
 var checkForTasks = function(array) {
   console.log('in checkForTasks');
   //If there are no incomplete tasks, tell user they are all caught up.
@@ -68,6 +83,17 @@ var deleteTask = function(object) {
     }); // end ajax
 }; // end deleteTask
 
+var displayPeople = function(array){
+  console.log('in displayPeople');
+  //populate last people-select with options
+  for (var i = 0; i < array.length; i++) {
+    var id = array[i].id;
+    var first_name = array[i].first_name;
+    var last_name = array[i].last_name;
+    $('.people-select').last().append('<option value="'+ id +'-person">'+ first_name + ' ' + last_name + '</option>');
+  } // end for
+}; // end displayPeople
+
 var displayTasks = function(array) {
   console.log('in displayTasks', array);
   $('#tasksOut').html('<h2 class="tasks-header">Tasks</h2>');
@@ -106,6 +132,20 @@ var getConfirmation = function() {
   }); // end .btn-confirm click
 }; // end getConfirmation
 
+var getPeople = function() {
+  console.log('in getPeople');
+  $.ajax({
+    type: 'GET',
+    url: '/people',
+    success: function(response) {
+      displayPeople(response.people);
+    }, // end success
+    error: function(err) {
+      console.log(err);
+    } // end error
+  }); // end ajax
+}; // end getPeople
+
 var getTasks = function() {
   console.log('in getTasks');
   $.ajax({
@@ -124,9 +164,11 @@ var getTasks = function() {
 var init = function() {
   console.log('in init');
   getTasks();
+  getPeople();
   //event listeners
   $(document).on('click', '.complete-task-btn', completeTask);
   $(document).on('click', '.delete-task-btn', getConfirmation);
+  $(document).on('click', '.btn-add-people-selects', addPeopleSelect);
 }; // end init
 
 var postTask = function(object) {
@@ -149,16 +191,20 @@ var postTask = function(object) {
 }; // end postTask
 
 var updateCompletedAppearance = function(num) {
-  console.log('in updateCompleteOnDOM:', num);
+  console.log('in updateCompleteOnDOM:');
   //select div of completed task using data attribute
   var $completed = $('#tasksOut').find("[data-id='" + num + "']");
   //change completed button to checked icon
   $completed.find('.complete-task-btn').addClass('disabled');
   $completed.find('.complete-task-btn').html('<i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i>');
-  //clone completed task, remove original from DOM, append cloned to bottom of #tasksOut
+  //clone completed task
   $clone_completed = $completed.clone();
-  $completed.remove();
-  $('#tasksOut').append($clone_completed);
+  //fadeOut completed task
+  $completed.fadeOut('slow', function(){
+    //remove completed from DOM, append and fadeIn cloned to bottom of list
+    $completed.remove();
+    $clone_completed.hide().appendTo("#tasksOut").fadeIn('slow');
+  }); // end fadeOut
 }; // end updateCompleteOnDOM
 
 var validateTaskIn = function() {
