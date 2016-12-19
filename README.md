@@ -32,9 +32,11 @@ Here are the specific components for the challenge:
 * [x] Adjust the logic so that completed tasks are brought to the bottom of the page, where the remaining tasks left to complete are brought to the top of the list.
 
 ###SUPER PRO MODE
-* [] Adjust the logic, app performance, and database schema to match that of the following ERD:
+* [ ] Adjust the logic, app performance, and database schema to match that of the following ERD:
+  * [x] Add people logic
+  * [ ] Add lists logic
 ![ERD](public/images/to-do.png?raw=true "ERD")
 
 ###STRETCH GOALS
-* [] Add server-side validation
-* [] Host app on Heroku
+* [ ] Add server-side validation
+* [ ] Host app on Heroku

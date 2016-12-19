@@ -34,7 +34,6 @@ router.get('/', function(req, res) {
 
 //post route
 router.post('/', function(req, res) {
-
   console.log('post route hit');
   //console.log(req.body);
   pg.connect(connStr, function(err, client, done) {

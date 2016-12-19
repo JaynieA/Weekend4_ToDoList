@@ -4,7 +4,7 @@ $mainFont: 'Coming Soon', cursive;
 //COLORS
 $white: #fff;
 $mainFontColor: #515150;
-//$mainFontColor: #fff;
+$lightMainFontColor: lighten($mainFontColor, 20%);
 $accentColor: #81CFD1;
 
 $backgroundColor: #51576F;

@@ -11,25 +11,9 @@ var addPeopleSelect = function(){
   var $newButton = $('.select-group').children().last();
   $newButton.addClass('btn btn-xs btn-delete-select');
   $newButton.append('<i class="fa fa-times" aria-hidden="true"></i>');
-  getPeople();
+  getAllPeople();
   controlAssignButtonVisibility();
 }; // end addpeopleSelect
-
-var controlAssignButtonVisibility = function(){
-  console.log('in controlAssignButtonVisibility');
-  //get number of selects on dom after adding
-  var numSelects = $('.people-select').length;
-  //get number people by counting the number of options in the first select
-  var numOptions = $('.select-group').children().first().find('option').length - 1;
-  //If Number of Selects is >= Number of people, hide 'Assign to More' button
-  if (numSelects >= numOptions) {
-    $('.btn-add-people-selects').hide();
-    $('#addTaskButton').css('margin-left','10px');
-  } else if (numSelects < numOptions) {
-    $('.btn-add-people-selects').show();
-    $('#addTaskButton').css('margin-left','5px');
-  } // end else/if
-}; // end controlAssignButtonVisibility
 
 var checkForTasks = function(array) {
   console.log('in checkForTasks');
@@ -66,28 +50,21 @@ var completeTask = function() {
   }); // end ajax
 }; // end completeTask
 
-var validatePeopleAssigned = function() {
-  console.log('in validatePeopleAssigned');
-  var toValidate = [];
-  //get values of all selects, push into toValidate
-  $('.people-select').each(function() {
-    var person = $(this).val();
-    toValidate.push(person);
-  }); // end each select
-  //check if null exists within toValidate
-  if (toValidate.indexOf(null) === -1){
-    return true;
-  } else {
-    //Turn select with value null red so user knows what's up
-    $('.people-select').each(function() {
-      console.log($(this).val());
-      if ($(this).val() === null) {
-        $(this).addClass('bad-input');
-      } // end if
-    }); // end each select
-    return false;
-  } // end else
-}; // end validatePeopleAssigned
+var controlAssignButtonVisibility = function(){
+  console.log('in controlAssignButtonVisibility');
+  //get number of selects on dom after adding
+  var numSelects = $('.people-select').length;
+  //get number people by counting the number of options in the first select
+  var numOptions = $('.select-group').children().first().find('option').length - 1;
+  //If Number of Selects is >= Number of people, hide 'Assign to More' button
+  if (numSelects >= numOptions) {
+    $('.btn-add-people-selects').hide();
+    $('#addTaskButton').css('margin-left','10px');
+  } else if (numSelects < numOptions) {
+    $('.btn-add-people-selects').show();
+    $('#addTaskButton').css('margin-left','5px');
+  } // end else/if
+}; // end controlAssignButtonVisibility
 
 var createTask = function(e){
   e.preventDefault();
@@ -172,8 +149,8 @@ var disableSelectedPeople = function(){
   } // end if
 }; // end disableSelectedPeople
 
-var displayPeople = function(array){
-  console.log('in displayPeople');
+var displayPeopleOnSelects = function(array){
+  console.log('in displayPeopleOnSelects');
   //populate last people-select with options
   for (var i = 0; i < array.length; i++) {
     var id = array[i].id;
@@ -181,7 +158,7 @@ var displayPeople = function(array){
     var last_name = array[i].last_name;
     $('.people-select').last().append('<option value="'+ id +'-person">'+ first_name + ' ' + last_name + '</option>');
   } // end for
-}; // end displayPeople
+}; // end displayPeopleOnSelects
 
 var displayTasks = function(array) {
   console.log('in displayTasks', array);
@@ -199,6 +176,11 @@ var displayTasks = function(array) {
     $taskDiv.append('<button class="btn delete-task-btn btn-sm"></button>');
     $deleteButton = $taskDiv.children().last();
     $deleteButton.append('<i class="fa fa-trash fa-lg" aria-hidden="true"></i>');
+
+    //TODO:: make this real, happen from getPeopleForTasks
+    //append people assigned to the task:
+    $taskDiv.append('<p class="task-people"></p>');
+
   } // end for
 }; // end displayTasks
 
@@ -220,19 +202,49 @@ var getConfirmation = function() {
   }); // end .btn-confirm click
 }; // end getConfirmation
 
-var getPeople = function() {
-  console.log('in getPeople');
+var getAllPeople = function() {
+  console.log('in getAllPeople');
   $.ajax({
     type: 'GET',
     url: '/people',
     success: function(response) {
-      displayPeople(response.people);
+      displayPeopleOnSelects(response.people);
     }, // end success
     error: function(err) {
       console.log(err);
     } // end error
   }); // end ajax
-}; // end getPeople
+}; // end getAllPeople
+
+var getPeopleForTasks = function(){
+  console.log('in getPeopleForTasks');
+  $.ajax({
+    type: 'GET',
+    url: '/joined',
+    success: function(response) {
+      displayTaskAssignments(response.peopleAndTasks);
+    }, // end success
+    error: function(err) {
+      console.log(err);
+    } // end error
+  }); // end ajax
+}; // end getPeopleForTasks
+
+var displayTaskAssignments = function(array){
+  console.log('in displayTaskAssignments');
+  for (var i = 0; i < array.length; i++) {
+    //find task div's that match using data attribute
+    var $taskMatch = $("#tasksOut").find("[data-id='" + array[i].task_id + "']").find('.task-people');
+    //add names of those assigned to .task-people paragraph
+    var outputText = $taskMatch.html();
+    //add formatting if more than one person added
+    if (outputText !== '') {
+      outputText += ', ';
+    } // end if
+    outputText += array[i].first_name + ' ' + array[i].last_name;
+    $taskMatch.html(outputText);
+  } // end for
+}; // end displayTaskAssignments
 
 var getTasks = function() {
   console.log('in getTasks');
@@ -242,6 +254,7 @@ var getTasks = function() {
     success: function(response) {
       console.log('get route success:', response);
       checkForTasks(response.tasks);
+      getPeopleForTasks();
     }, // end success
     error: function(err) {
       console.log('get route error:', err);
@@ -252,7 +265,8 @@ var getTasks = function() {
 var init = function() {
   console.log('in init');
   getTasks();
-  getPeople();
+  // getPeopleForTasks();
+  getAllPeople();
   //event listeners
   $(document).on('click', '.complete-task-btn', completeTask);
   $(document).on('click', '.delete-task-btn', getConfirmation);
@@ -269,10 +283,7 @@ var postTask = function(object) {
     data: JSON.stringify(object),
     contentType: 'application/json',
     success: function(response) {
-      //reset bad input appearances
-      $('#taskIn').removeClass('bad-input');
-      $('.people-select').removeClass('bad-input');
-      $('.people-select').prop('selectedIndex',0);
+      resetAddTaskForm();
       //get and display new tasks
       getTasks();
     }, // end success
@@ -281,6 +292,19 @@ var postTask = function(object) {
     } // end error
   }); // end ajax
 }; // end postTask
+
+var resetAddTaskForm = function() {
+  console.log('in resetAddTaskForm');
+  //reset bad input appearances
+  $('#taskIn').removeClass('bad-input');
+  $('.people-select').removeClass('bad-input');
+  $('.people-select').prop('selectedIndex',0);
+  //reset number of selects to one
+  console.log($('.people-select').length);
+  if ($('.people-select').length > 1) {
+    $('.people-select:last').remove();
+  } // end if
+}; // end resetAddTaskForm
 
 var updateCompletedAppearance = function(num) {
   console.log('in updateCompleteOnDOM:');
@@ -298,6 +322,29 @@ var updateCompletedAppearance = function(num) {
     $clone_completed.hide().appendTo("#tasksOut").fadeIn('slow');
   }); // end fadeOut
 }; // end updateCompleteOnDOM
+
+var validatePeopleAssigned = function() {
+  console.log('in validatePeopleAssigned');
+  var toValidate = [];
+  //get values of all selects, push into toValidate
+  $('.people-select').each(function() {
+    var person = $(this).val();
+    toValidate.push(person);
+  }); // end each select
+  //check if null exists within toValidate
+  if (toValidate.indexOf(null) === -1){
+    return true;
+  } else {
+    //Turn select with value null red so user knows what's up
+    $('.people-select').each(function() {
+      console.log($(this).val());
+      if ($(this).val() === null) {
+        $(this).addClass('bad-input');
+      } // end if
+    }); // end each select
+    return false;
+  } // end else
+}; // end validatePeopleAssigned
 
 var validateTaskIn = function() {
   //validate input: return false if empty, else true

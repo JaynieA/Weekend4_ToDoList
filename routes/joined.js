@@ -2,27 +2,29 @@ var express = require( 'express' );
 var router = express.Router();
 var path = require( 'path' );
 var pg = require( 'pg' );
+var bodyParser = require( 'body-parser' );
+
+router.use(bodyParser.urlencoded({extended: true}));
+router.use(bodyParser.json());
 
 var connStr = 'postgres://localhost:5432/Weekend4_toDoList';
 
-//get route
-
-//gets people for selects
+//gets people for tasks
 router.get('/', function(req, res) {
-  var people = [];
+  peopleAndTasks = [];
   pg.connect(connStr, function(err, client, done) {
     if (err) {
       //if there is an error, log it
       console.log('error:', err);
     } else {
-      var query = client.query('SELECT id, first_name, last_name FROM people ORDER BY last_name, first_name');
+      var query = client.query("SELECT people.first_name, people.last_name, people_task.task_id, people_task.people_id  FROM people JOIN people_task ON people.id = people_task.people_id JOIN task ON task.id = people_task.task_id");
       query.on('row', function(row){
-        people.push(row);
+        peopleAndTasks.push(row);
       }); // end query
       query.on('end', function() {
         //disconnect from database, send tasks to client
         done();
-        res.send({people: people});
+        res.send({peopleAndTasks: peopleAndTasks});
       }); // end query
     } // end else
   }); // end pg connect
