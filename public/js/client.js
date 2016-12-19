@@ -159,8 +159,6 @@ var disableSelectedPeople = function(){
 
 var displayPeopleOnSelects = function(array){
   console.log('in displayPeopleOnSelects');
-  //clear .people-select's
-  $('.people-select').html('<option value="" selected disabled>Choose a Person:</option>');
   //populate last people-select with options
   for (var i = 0; i < array.length; i++) {
     var id = array[i].id;
@@ -290,6 +288,8 @@ var postNewPerson = function(object) {
     data: object,
     success: function(response) {
       console.log(response);
+      //clear .people-select's
+      $('.people-select').html('<option value="" selected disabled>Choose a Person:</option>');
       getAllPeople();
       //clear input values
       $('#firstNameIn').val('');
