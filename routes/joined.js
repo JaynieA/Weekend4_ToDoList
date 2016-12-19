@@ -30,4 +30,26 @@ router.get('/', function(req, res) {
   }); // end pg connect
 }); // end get route
 
+
+//gets list for tasks
+router.get('/whichList', function(req, res) {
+  listForTasks = [];
+  pg.connect(connStr, function(err, client, done) {
+    if (err) {
+      //if there is an error, log it
+      console.log('error:', err);
+    } else {
+      var query = client.query("SELECT task.id AS task_id, task.list_id, list.name AS list_name FROM task JOIN list ON task.list_id = list.id");
+      query.on('row', function(row){
+        listForTasks.push(row);
+      }); // end query
+      query.on('end', function() {
+        //disconnect from database, send tasks to client
+        done();
+        res.send({listForTasks: listForTasks});
+      }); // end query
+    } // end else
+  }); // end pg connect
+}); // end get route
+
 module.exports = router;

@@ -181,6 +181,17 @@ var disableSelectedPeople = function(){
   } // end if
 }; // end disableSelectedPeople
 
+var displayListAssignments = function(array) {
+  console.log('in displayListAssignments');
+  console.log(array);
+  for (var i = 0; i < array.length; i++) {
+    var list_id = array[i].list_id;
+    var list_name = array[i].list_name;
+    var task_id = array[i].task_id;
+    console.log('list id:',list_id, 'list_name:', list_name, 'task_id:', task_id);
+  }
+}; // end displayListAssignments
+
 var displayListsOnSelect = function(array) {
   console.log('in displayListsOnSelect');
   for (var i = 0; i < array.length; i++) {
@@ -233,8 +244,10 @@ var displayTasks = function(array) {
     $taskDiv.append('<button class="btn delete-task-btn btn-sm"></button>');
     $deleteButton = $taskDiv.children().last();
     $deleteButton.append('<i class="fa fa-trash fa-lg" aria-hidden="true"></i>');
-    //append people assigned to the task:
-    $taskDiv.append('<p class="task-people"></p>');
+    //append container to hold which people are assigned to the task:
+    $taskDiv.append('<p class="task-people sub-task-text"></p>');
+    //append container to hold which list the task belongs to:
+    $taskDiv.append('<p class="task-list sub-task-text">On List:</p>');
   } // end for
 }; // end displayTasks
 
@@ -285,6 +298,20 @@ var getAllPeople = function() {
   }); // end ajax
 }; // end getAllPeople
 
+var getListForTasks = function(){
+  console.log('in getListForTasks');
+  $.ajax({
+    type: 'GET',
+    url: '/joined/whichList',
+    success: function(response) {
+      displayListAssignments(response.listForTasks);
+    }, // end success
+    error: function(err) {
+      console.log(err);
+    } // end error
+  }); // end ajax
+}; // end getListForTasks
+
 var getPeopleForTasks = function(){
   console.log('in getPeopleForTasks');
   $.ajax({
@@ -307,6 +334,7 @@ var getTasks = function() {
     success: function(response) {
       checkForTasks(response.tasks);
       getPeopleForTasks();
+      getListForTasks();
     }, // end success
     error: function(err) {
       console.log('get route error:', err);

@@ -247,10 +247,15 @@ input {
   display: inline;
   font-size: 20px;
 }
-.task-people {
+.sub-task-text {
   margin: 0 0 0 55px;
   color: $lightMainFontColor;
   max-width: 70%;
+}
+.task-list{
+  color: $confirmGreen;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 .tasks-complete-img {
   max-width: 100%;
