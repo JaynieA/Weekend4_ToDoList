@@ -161,7 +161,7 @@ input {
 }
 // ----- LAYOUT----- //
   //FORM
-#peopleSelect {
+.add-task-select {
   display: inline;
   label {
     margin-left: 10px;
@@ -184,7 +184,7 @@ input {
       }
     }
   }
-  .select-group {
+  .select-contain {
     display: inline;
     select {
       margin: 0 2px;
@@ -205,6 +205,23 @@ input {
         margin-right: -3px;
       }
     }
+  }
+}
+#addPersonForm {
+  display: inline;
+}
+#addListForm {
+  float: right;
+  display: inline;
+}
+.hideable-form {
+  display: inline;
+  display: none;
+}
+.form-toggle {
+  display: inline;
+  p {
+    display: inline;
   }
 }
   //TASKS

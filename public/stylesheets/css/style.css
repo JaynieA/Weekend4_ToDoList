@@ -130,25 +130,25 @@ input {
         color: #515150;
         transform: scale(1, 1); }
 
-#peopleSelect {
+.add-task-select {
   display: inline; }
-  #peopleSelect label {
+  .add-task-select label {
     margin-left: 10px; }
-  #peopleSelect button {
+  .add-task-select button {
     margin: -2px -5px 0 8px; }
-  #peopleSelect .btn-delete-select {
+  .add-task-select .btn-delete-select {
     margin: 0 2px;
     background-color: #DA6667; }
-    #peopleSelect .btn-delete-select:last-of-type {
+    .add-task-select .btn-delete-select:last-of-type {
       margin-right: -10px; }
-    #peopleSelect .btn-delete-select:hover, #peopleSelect .btn-delete-select:focus {
+    .add-task-select .btn-delete-select:hover, .add-task-select .btn-delete-select:focus {
       border-color: #DA6667;
       background-color: transparent; }
-      #peopleSelect .btn-delete-select:hover i, #peopleSelect .btn-delete-select:focus i {
+      .add-task-select .btn-delete-select:hover i, .add-task-select .btn-delete-select:focus i {
         color: #DA6667; }
-  #peopleSelect .select-group {
+  .add-task-select .select-contain {
     display: inline; }
-    #peopleSelect .select-group select {
+    .add-task-select .select-contain select {
       margin: 0 2px;
       display: inline;
       height: calc(2.5rem - 2px);
@@ -163,8 +163,24 @@ input {
       background-clip: padding-box;
       border: 1px solid rgba(0, 0, 0, 0.15);
       border-radius: .25rem; }
-      #peopleSelect .select-group select:first-of-type {
+      .add-task-select .select-contain select:first-of-type {
         margin-right: -3px; }
+
+#addPersonForm {
+  display: inline; }
+
+#addListForm {
+  float: right;
+  display: inline; }
+
+.hideable-form {
+  display: inline;
+  display: none; }
+
+.form-toggle {
+  display: inline; }
+  .form-toggle p {
+    display: inline; }
 
 #tasksOut {
   margin: 30px auto 30px auto;

@@ -282,7 +282,15 @@ var init = function() {
   $(document).on('click', '.btn-add-people-selects', addPeopleSelect);
   $(document).on('click', '.btn-delete-select', deletePeopleSelect);
   $(document).on('mouseover', '.people-select', disableSelectedPeople);
+  $(document).on('click', '#ListToggleButton', showClosestForm);
 }; // end init
+
+var showClosestForm = function() {
+  console.log('in slideFormIn');
+  $(this).closest('.form-toggle').hide();
+  $(this).closest('.form-toggle').prev().fadeIn();
+
+}; // end slideFormIn
 
 var postNewPerson = function(object) {
   //posts new person to server to add to database

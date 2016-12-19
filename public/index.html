@@ -22,15 +22,26 @@
             <label for="taskIn">Add Task:</label>
             <input id="taskIn" type="text" placeholder="add a task..." maxlength="28">
 
-            <div id="peopleSelect">
+            <div id="peopleSelect" class="add-task-select">
                 <label>Assign To:</label>
-                <div class="select-group">
+                <div class="select-group select-contain">
                     <select class="people-select">
                         <option value="" selected disabled>Choose a Person:</option>
                     </select>
                 </div>
                 <button type="button" class="btn btn-sm btn-text btn-add-people-selects"><i class="fa fa-user" aria-hidden="true"></i>Assign To More</button>
             </div>
+
+            <div id="listSelect" class="add-task-select">
+                <label for="listIn">Add To:</label>
+                <div class="select-contain">
+                    <select class="list-select">
+                        <option value="" selected disabled>Choose a List:</option>
+                    </select>
+                </div>
+
+            </div>
+
             <button id="addTaskButton" type="submit" class="btn btn-circle"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
         </form>
         <form id="addPersonForm" onsubmit="createPersonObject(event)">
@@ -39,6 +50,19 @@
           <input id="lastNameIn" class="person-in" type="text" placeholder="last name">
           <button id="addPersonButton" type="submit" class="btn btn-circle"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
         </form>
+
+        <form id="addListForm" onsubmit="createListObject(event)">
+            <div class="hideable-form">
+                <label for="listIn">New List:</label>
+                <input id="listIn" type="text" placeholder="add a list...">
+                <button id="addListButton" type="submit" class="btn btn-circle"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
+            </div>
+            <div class="form-toggle">
+                <button id="ListToggleButton" type="button" class="btn btn-circle"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></button>
+                <p>Add List</p>
+            </div>
+        </form>
+
         <div id="tasksOut">
             <h2 class="tasks-header">Tasks</h2>
         </div>

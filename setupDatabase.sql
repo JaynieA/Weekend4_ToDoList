@@ -17,3 +17,13 @@ CREATE TABLE people_task (
 	task_id INT REFERENCES task(id) ON DELETE CASCADE,
 	people_id INT REFERENCES people(id) ON DELETE CASCADE
 );
+
+---~~~~~~~ ALTER TABLES FOR SUPER PRO MODE ~~~~~~~~ ---
+
+CREATE TABLE list (
+	id SERIAL PRIMARY KEY ,
+	name VARCHAR(30) UNIQUE
+);
+
+ALTER TABLE task
+ADD list_id INT REFERENCES list(id) ON DELETE CASCADE;
