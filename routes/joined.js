@@ -7,7 +7,7 @@ var bodyParser = require( 'body-parser' );
 router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json());
 
-var connStr = 'postgres://localhost:5432/Weekend4_toDoList';
+var connStr = process.env.DATABASE_URL || 'postgres://localhost:5432/Weekend4_toDoList';
 
 //gets people for tasks
 router.get('/', function(req, res) {

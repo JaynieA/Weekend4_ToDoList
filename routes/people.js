@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require( 'path' );
 var pg = require( 'pg' );
 
-var connStr = 'postgres://localhost:5432/Weekend4_toDoList';
+var connStr = process.env.DATABASE_URL || 'postgres://localhost:5432/Weekend4_toDoList';
 
 //get route
 //gets people for selects
