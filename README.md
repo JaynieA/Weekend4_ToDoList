@@ -46,7 +46,3 @@ Here are the specific components for the challenge:
 
 ###DEMO
 ![Demo](public/images/demo.gif?raw=true "DemoGif")
-
-<p align="center">
-  <img src="public/images/demo.gif?raw=true" alt="Demo"/>
-</p>
