@@ -1,9 +1,11 @@
+var logs = false;
+
 $(document).ready(function() {
   init();
 }); // end doc ready
 
 var addPeopleSelect = function(){
-  console.log('in addpeopleSelect');
+  if (logs) console.log('in addpeopleSelect');
   $('.select-group').append('<select class="people-select"></select>');
   var $newSelect = $('.select-group').children().last();
   $newSelect.append('<option value="" selected disabled>Choose a Person:</option>');
@@ -16,7 +18,7 @@ var addPeopleSelect = function(){
 }; // end addpeopleSelect
 
 var checkForTasks = function(array) {
-  console.log('in checkForTasks');
+  if (logs) console.log('in checkForTasks');
   //If there are no incomplete tasks, tell user they are all caught up.
   //Else, display tasks
   if (array.length === 0) {
@@ -30,7 +32,7 @@ var checkForTasks = function(array) {
 }; // end checkForTasks
 
 var checkIfEmpty = function(num) {
-  console.log('in checkIfEmpty');
+  if (logs) console.log('in checkIfEmpty');
   if (num < 1) {
     $('#tasksOut h2').text('You are all caught up!');
     $('#tasksOut').append('<img src="images/hero.jpg" alt="You are a hero">');
@@ -40,7 +42,7 @@ var checkIfEmpty = function(num) {
 }; // end checkIfEmpty
 
 var completeTask = function() {
-  console.log('in completeTask');
+  if (logs) console.log('in completeTask');
   var objectToSend = {
     id: $(this).closest('.task').data('id')
   }; // end objectToSend
@@ -55,13 +57,13 @@ var completeTask = function() {
       updateCompletedAppearance(task_id);
     }, // end success
     error: function(err) {
-      console.log(err);
+      if (logs) console.log(err);
     } // end error
   }); // end ajax
 }; // end completeTask
 
 var controlAssignButtonVisibility = function(){
-  console.log('in controlAssignButtonVisibility');
+  if (logs) console.log('in controlAssignButtonVisibility');
   //get number of selects on dom after adding
   var numSelects = $('.people-select').length;
   //get number people by counting the number of options in the first select
@@ -79,7 +81,7 @@ var controlAssignButtonVisibility = function(){
 var createListObject = function(e) {
   //prevent page refresh
   e.preventDefault();
-  console.log('in createListObject');
+  if (logs) console.log('in createListObject');
   //reset any remaining 'bad-input' classes
   $('#listIn').removeClass('bad-input');
   //proceed if form validated
@@ -87,7 +89,7 @@ var createListObject = function(e) {
     var objectToSend = {
       name: $('#listIn').val()
     }; // end objectToSend
-    console.log(objectToSend);
+    if (logs) console.log(objectToSend);
     postNewList(objectToSend);
   } // end if
 }; // end createListObject
@@ -95,7 +97,7 @@ var createListObject = function(e) {
 var createPersonObject = function(e) {
   //prevent page refresh
   e.preventDefault();
-  console.log('in createPersonObject');
+  if (logs) console.log('in createPersonObject');
   //reset any remaining 'bad-input' classes
   $('.person-in').removeClass('bad-input');
   //Proceed if form validated
@@ -110,7 +112,7 @@ var createPersonObject = function(e) {
 
 var createTask = function(e){
   e.preventDefault();
-  console.log('in createTask');
+  if (logs) console.log('in createTask');
   $('.people-select').removeClass('bad-input');
   var people = [];
   //if validatePeopleAssigned and validateListChoice both return true, continue
@@ -130,7 +132,7 @@ var createTask = function(e){
         people: people,
         list_id: list_id
       }; // end objectToSend
-      console.log(objectToSend);
+      if (logs) console.log(objectToSend);
       //post task to server for insertion into database
       postTask(objectToSend);
     } // end if
@@ -140,7 +142,7 @@ var createTask = function(e){
 }; // end createTask
 
 var deletePeopleSelect = function(){
-  console.log('in deletePeopleSelect');
+  if (logs) console.log('in deletePeopleSelect');
   //remove the closest select
   $(this).prev().remove();
   //remove the button itself
@@ -149,7 +151,7 @@ var deletePeopleSelect = function(){
 }; // end deletePeopleSelect
 
 var deleteTask = function(object) {
-  console.log('in deleteTask');
+  if (logs) console.log('in deleteTask');
     $.ajax({
       type: 'DELETE',
       url: '/task',
@@ -163,13 +165,13 @@ var deleteTask = function(object) {
         checkIfEmpty($('.task').length);
       }, // end success
       error: function(err) {
-        console.log(err);
+        if (logs) console.log(err);
       } // end error
     }); // end ajax
 }; // end deleteTask
 
 var disableSelectedPeople = function(){
-  console.log('in disableSelectedPeople');
+  if (logs) console.log('in disableSelectedPeople');
   var numSelects = $('.people-select').length;
   //if more than one select, continue
   if (numSelects > 1) {
@@ -193,7 +195,7 @@ var disableSelectedPeople = function(){
 }; // end disableSelectedPeople
 
 var displayListAssignments = function(array) {
-  console.log('in displayListAssignments');
+  if (logs) console.log('in displayListAssignments');
   for (var i = 0; i < array.length; i++) {
     var list_id = array[i].list_id;
     var list_name = array[i].list_name;
@@ -208,7 +210,7 @@ var displayListAssignments = function(array) {
 }; // end displayListAssignments
 
 var displayListsOnSelect = function(array) {
-  console.log('in displayListsOnSelect');
+  if (logs) console.log('in displayListsOnSelect');
   for (var i = 0; i < array.length; i++) {
     var id = array[i].id;
     var name = array[i].name;
@@ -217,7 +219,7 @@ var displayListsOnSelect = function(array) {
 }; // end displayListsOnSelect
 
 var displayPeopleOnSelects = function(array){
-  console.log('in displayPeopleOnSelects');
+  if (logs) console.log('in displayPeopleOnSelects');
   //populate last people-select with options
   for (var i = 0; i < array.length; i++) {
     var id = array[i].id;
@@ -228,7 +230,7 @@ var displayPeopleOnSelects = function(array){
 }; // end displayPeopleOnSelects
 
 var displayTaskAssignments = function(array){
-  console.log('in displayTaskAssignments');
+  if (logs) console.log('in displayTaskAssignments');
   for (var i = 0; i < array.length; i++) {
     //find task div's that match using data attribute
     var $taskMatch = $("#tasksOut").find("[data-id='" + array[i].task_id + "']").find('.task-people');
@@ -244,7 +246,7 @@ var displayTaskAssignments = function(array){
 }; // end displayTaskAssignments
 
 var displayTasks = function(array) {
-  console.log('in displayTasks', array);
+  if (logs) console.log('in displayTasks', array);
   $('#tasksOut').html('<h2 class="tasks-header">Tasks</h2>');
   for (var i = 0; i < array.length; i++) {
     $('#tasksOut').append('<div class="task" data-id="' + array[i].id + '"></div>');
@@ -267,7 +269,7 @@ var displayTasks = function(array) {
 }; // end displayTasks
 
 var getConfirmation = function() {
-  console.log('in getConfirmation');
+  if (logs) console.log('in getConfirmation');
   var objectToSend = {
     id: $(this).closest('.task').data('id')
   }; // end objectToSend
@@ -285,22 +287,22 @@ var getConfirmation = function() {
 }; // end getConfirmation
 
 var getAllLists = function() {
-  console.log('in getAllLists');
+  if (logs) console.log('in getAllLists');
   $.ajax({
     type: 'GET',
     url: '/list',
     success: function(response) {
-      console.log(response.lists);
+      if (logs) console.log(response.lists);
       displayListsOnSelect(response.lists);
     },
     error: function(err) {
-      console.log(err);
+      if (logs) console.log(err);
     } // end error
   }); // end ajax
 }; // end getAllLists
 
 var getAllPeople = function() {
-  console.log('in getAllPeople');
+  if (logs) console.log('in getAllPeople');
   $.ajax({
     type: 'GET',
     url: '/people',
@@ -308,13 +310,13 @@ var getAllPeople = function() {
       displayPeopleOnSelects(response.people);
     }, // end success
     error: function(err) {
-      console.log(err);
+      if (logs) console.log(err);
     } // end error
   }); // end ajax
 }; // end getAllPeople
 
 var getListForTasks = function(){
-  console.log('in getListForTasks');
+  if (logs) console.log('in getListForTasks');
   $.ajax({
     type: 'GET',
     url: '/joined/whichList',
@@ -322,13 +324,13 @@ var getListForTasks = function(){
       displayListAssignments(response.listForTasks);
     }, // end success
     error: function(err) {
-      console.log(err);
+      if (logs) console.log(err);
     } // end error
   }); // end ajax
 }; // end getListForTasks
 
 var getPeopleForTasks = function(){
-  console.log('in getPeopleForTasks');
+  if (logs) console.log('in getPeopleForTasks');
   $.ajax({
     type: 'GET',
     url: '/joined',
@@ -336,13 +338,13 @@ var getPeopleForTasks = function(){
       displayTaskAssignments(response.peopleAndTasks);
     }, // end success
     error: function(err) {
-      console.log(err);
+      if (logs) console.log(err);
     } // end error
   }); // end ajax
 }; // end getPeopleForTasks
 
 var getTasks = function() {
-  console.log('in getTasks');
+  if (logs) console.log('in getTasks');
   $.ajax({
     type: 'GET',
     url: '/task',
@@ -352,13 +354,13 @@ var getTasks = function() {
       getListForTasks();
     }, // end success
     error: function(err) {
-      console.log('get route error:', err);
+      if (logs) console.log('get route error:', err);
     } // end error
   }); // end ajax
 }; // end getTasks
 
 var init = function() {
-  console.log('in init');
+  if (logs) console.log('in init');
   getTasks();
   getAllLists();
   getAllPeople();
@@ -372,31 +374,31 @@ var init = function() {
 }; // end init
 
 var postNewList = function(object) {
-  console.log('in postNewList');
+  if (logs) console.log('in postNewList');
   $.ajax({
     type: 'POST',
     url: '/list',
     data: object,
     success: function(response) {
-      console.log(response);
+      if (logs) console.log(response);
       //clear input
       $('#listIn').val('');
     }, // end success
     error: function(err) {
-      console.log(err);
+      if (logs) console.log(err);
     } // end error
   }); // end ajax
 }; // end postNewList
 
 var postNewPerson = function(object) {
   //posts new person to server to add to database
-  console.log('in postNewPerson');
+  if (logs) console.log('in postNewPerson');
   $.ajax({
     type: 'POST',
     url: '/people',
     data: object,
     success: function(response) {
-      console.log(response);
+      if (logs) console.log(response);
       //clear .people-select's
       $('.people-select').html('<option value="" selected disabled>Choose a Person:</option>');
       getAllPeople();
@@ -405,13 +407,13 @@ var postNewPerson = function(object) {
       $('#lastNameIn').val('');
     }, // end success
     error: function(err) {
-      console.log(err);
+      if (logs) console.log(err);
     } // end error
   }); // end ajax
 }; // end postNewPerson
 
 var postTask = function(object) {
-  console.log('in postTask');
+  if (logs) console.log('in postTask');
   $.ajax({
     type: 'POST',
     url: '/task',
@@ -423,18 +425,19 @@ var postTask = function(object) {
       getTasks();
     }, // end success
     error: function(err) {
-      console.log(err);
+      if (logs) console.log(err);
     } // end error
   }); // end ajax
 }; // end postTask
 
 var resetAddTaskForm = function() {
-  console.log('in resetAddTaskForm');
+  if (logs) console.log('in resetAddTaskForm');
   //reset bad input appearances
   $('#taskIn').removeClass('bad-input');
   $('.people-select').removeClass('bad-input');
   $('.list-select').removeClass('bad-input');
   $('.people-select').prop('selectedIndex',0);
+  $('.list-select').prop('selectedIndex',0);
   //reset number of selects to one
   if ($('.people-select').length > 1) {
     $('.people-select:last').remove();
@@ -442,13 +445,13 @@ var resetAddTaskForm = function() {
 }; // end resetAddTaskForm
 
 var showClosestForm = function() {
-  console.log('in slideFormIn');
+  if (logs) console.log('in slideFormIn');
   $(this).closest('.form-toggle').hide();
   $(this).closest('.form-toggle').prev().fadeIn();
 }; // end slideFormIn
 
 var updateCompletedAppearance = function(num) {
-  console.log('in updateCompleteOnDOM:');
+  if (logs) console.log('in updateCompleteOnDOM:');
   //select div of completed task using data attribute
   var $completed = $('#tasksOut').find("[data-id='" + num + "']");
   //change completed button to checked icon
@@ -465,7 +468,7 @@ var updateCompletedAppearance = function(num) {
 }; // end updateCompleteOnDOM
 
 var validateListChoice = function() {
-  console.log('in validateListChoice');
+  if (logs) console.log('in validateListChoice');
   if ($('.list-select').val() === '' || $('.list-select').val() === null) {
     $('.list-select').addClass('bad-input');
     return false;
@@ -475,7 +478,7 @@ var validateListChoice = function() {
 }; // end validateListChoice
 
 var validateListIn = function(){
-  console.log('in validateListIn');
+  if (logs) console.log('in validateListIn');
   if ($('#listIn').val() !== '') {
     return true;
   } else if ($('#listIn').val() === '') {
@@ -485,7 +488,7 @@ var validateListIn = function(){
 }; // end validateListIn
 
 var validatePeopleAssigned = function() {
-  console.log('in validatePeopleAssigned');
+  if (logs) console.log('in validatePeopleAssigned');
   var toValidate = [];
   //get values of all selects, push into toValidate
   $('.people-select').each(function() {
@@ -507,7 +510,7 @@ var validatePeopleAssigned = function() {
 }; // end validatePeopleAssigned
 
 var validatePersonIn = function() {
-  console.log('in validatePersonIn');
+  if (logs) console.log('in validatePersonIn');
   if ($('#firstNameIn').val() !== '' && $('#lastNameIn').val() !== '') {
     return true;
   } else if ($('#firstNameIn').val() === '' && $('#lastNameIn').val() === '') {
@@ -523,7 +526,7 @@ var validatePersonIn = function() {
 
 var validateTaskIn = function() {
   //validate input: return false if empty, else true
-  console.log('in validateTaskIn');
+  if (logs) console.log('in validateTaskIn');
   if ($('#taskIn').val() === "") {
     $('#taskIn').addClass('bad-input');
     return false;
