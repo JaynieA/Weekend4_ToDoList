@@ -66,30 +66,58 @@ var completeTask = function() {
   }); // end ajax
 }; // end completeTask
 
+var validatePeopleAssigned = function() {
+  console.log('in validatePeopleAssigned');
+  var toValidate = [];
+  //get values of all selects, push into toValidate
+  $('.people-select').each(function() {
+    var person = $(this).val();
+    toValidate.push(person);
+  }); // end each select
+  //check if null exists within toValidate
+  if (toValidate.indexOf(null) === -1){
+    return true;
+  } else {
+    //Turn select with value null red so user knows what's up
+    $('.people-select').each(function() {
+      console.log($(this).val());
+      if ($(this).val() === null) {
+        $(this).addClass('bad-input');
+      } // end if
+    }); // end each select
+    return false;
+  } // end else
+}; // end validatePeopleAssigned
+
 var createTask = function(e){
   e.preventDefault();
   console.log('in createTask');
+  $('.people-select').removeClass('bad-input');
   var people = [];
-  //get values of all selected names
-  $('.people-select').each(function() {
-    //split string to get id number from beginning of value
-    var person = $(this).val();
-    var result = person.split("-")[0];
-    //push result into people array
-    people.push(result);
-  }); // end each select
-  console.log('people array:',people);
-  if (validateTaskIn()){
-    var objectToSend = {
-      task: $('#taskIn').val(),
-      people: people
-    }; // end objectToSend
-    console.log(objectToSend);
-    //post task to server for insertion into database
-    postTask(objectToSend);
+  //if validatePeopleAssigned returns true, continue
+  if (validatePeopleAssigned()) {
+    //get values of all selected names
+    $('.people-select').each(function() {
+      var person = $(this).val();
+      //split string to get id number from beginning of value
+      console.log('person is not null');
+      var result = person.split("-")[0];
+      //push result into people array
+      people.push(result);
+    }); // end each select
+    console.log('people array:',people);
+    if (validateTaskIn()){
+      var objectToSend = {
+        task: $('#taskIn').val(),
+        people: people
+      }; // end objectToSend
+      console.log(objectToSend);
+      //post task to server for insertion into database
+      postTask(objectToSend);
+    } // end if
+    //clear input value
+    $('#taskIn').val('');
   } // end if
-  //clear input value
-  $('#taskIn').val('');
 }; // end createTask
 
 var deletePeopleSelect = function(){
@@ -241,8 +269,10 @@ var postTask = function(object) {
     data: JSON.stringify(object),
     contentType: 'application/json',
     success: function(response) {
-      //reset task input validation alert appearance
+      //reset bad input appearances
       $('#taskIn').removeClass('bad-input');
+      $('.people-select').removeClass('bad-input');
+      $('.people-select').prop('selectedIndex',0);
       //get and display new tasks
       getTasks();
     }, // end success
