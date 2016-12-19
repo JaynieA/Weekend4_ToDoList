@@ -77,18 +77,15 @@ var createTask = function(e){
     $('.people-select').each(function() {
       var person = $(this).val();
       //split string to get id number from beginning of value
-      console.log('person is not null');
       var result = person.split("-")[0];
       //push result into people array
       people.push(result);
     }); // end each select
-    console.log('people array:',people);
     if (validateTaskIn()){
       var objectToSend = {
         task: $('#taskIn').val(),
         people: people
       }; // end objectToSend
-      console.log(objectToSend);
       //post task to server for insertion into database
       postTask(objectToSend);
     } // end if
@@ -249,7 +246,6 @@ var getTasks = function() {
     type: 'GET',
     url: '/task',
     success: function(response) {
-      console.log('get route success:', response);
       checkForTasks(response.tasks);
       getPeopleForTasks();
     }, // end success
@@ -297,7 +293,6 @@ var resetAddTaskForm = function() {
   $('.people-select').removeClass('bad-input');
   $('.people-select').prop('selectedIndex',0);
   //reset number of selects to one
-  console.log($('.people-select').length);
   if ($('.people-select').length > 1) {
     $('.people-select:last').remove();
   } // end if
@@ -334,7 +329,6 @@ var validatePeopleAssigned = function() {
   } else {
     //Turn select with value null red so user knows what's up
     $('.people-select').each(function() {
-      console.log($(this).val());
       if ($(this).val() === null) {
         $(this).addClass('bad-input');
       } // end if
