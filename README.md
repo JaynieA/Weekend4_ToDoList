@@ -1,16 +1,5 @@
 #Weekend Challenge 4: The To Do List
 
-##Technologies:
-* JavaScript
-* jQuery
-* Express.js
-* Node.js
-* SASS
-* HTML5
-* PosgreSQL
-
------
-
 This weekend is all about showing us that you have a handle on each of the different parts of the full stack. For this weekends challenge, you are going to create a 'TO DO' application. This is the type of application that is very common to tackle when learning a new language, which makes it extremely valuable to work through for the first time, since chances are good that at some point in your career you will tackle this type of application, but in another language.
 
 Here are the specific components for the challenge:
@@ -25,6 +14,15 @@ Here are the specific components for the challenge:
 * [x] Make sure that you also show us your best styling chops. We encourage you to try and write pure CSS rather than use Bootstrap.
 * [x] Additionally, please include some way to recreate your initial database schema. This can be a .sql file with `CREATE TABLE` statements or you can create your schema automatically when your app loads.
 
+##Technologies:
+* JavaScript
+* jQuery
+* Express.js
+* Node.js
+* SASS
+* HTML5
+* PosgreSQL
+
 ###HARD MODE
 * [x] In whatever fashion you would like, create an 'are you sure: yes / no' option when deleting a task. Once again, you can interrupt this however you would like.
 
@@ -36,7 +34,7 @@ Here are the specific components for the challenge:
   * [x] Add people logic
   * [ ] Add lists logic
 
-  
+
 ![ERD](public/images/to-do.png?raw=true "ERD")
 
 ###STRETCH GOALS

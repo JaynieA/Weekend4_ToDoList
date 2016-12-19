@@ -160,6 +160,22 @@ var displayPeopleOnSelects = function(array){
   } // end for
 }; // end displayPeopleOnSelects
 
+var displayTaskAssignments = function(array){
+  console.log('in displayTaskAssignments');
+  for (var i = 0; i < array.length; i++) {
+    //find task div's that match using data attribute
+    var $taskMatch = $("#tasksOut").find("[data-id='" + array[i].task_id + "']").find('.task-people');
+    //add names of those assigned to .task-people paragraph
+    var outputText = $taskMatch.html();
+    //add formatting if more than one person added
+    if (outputText !== '') {
+      outputText += ', ';
+    } // end if
+    outputText += array[i].first_name + ' ' + array[i].last_name;
+    $taskMatch.html(outputText);
+  } // end for
+}; // end displayTaskAssignments
+
 var displayTasks = function(array) {
   console.log('in displayTasks', array);
   $('#tasksOut').html('<h2 class="tasks-header">Tasks</h2>');
@@ -176,11 +192,8 @@ var displayTasks = function(array) {
     $taskDiv.append('<button class="btn delete-task-btn btn-sm"></button>');
     $deleteButton = $taskDiv.children().last();
     $deleteButton.append('<i class="fa fa-trash fa-lg" aria-hidden="true"></i>');
-
-    //TODO:: make this real, happen from getPeopleForTasks
     //append people assigned to the task:
     $taskDiv.append('<p class="task-people"></p>');
-
   } // end for
 }; // end displayTasks
 
@@ -229,22 +242,6 @@ var getPeopleForTasks = function(){
     } // end error
   }); // end ajax
 }; // end getPeopleForTasks
-
-var displayTaskAssignments = function(array){
-  console.log('in displayTaskAssignments');
-  for (var i = 0; i < array.length; i++) {
-    //find task div's that match using data attribute
-    var $taskMatch = $("#tasksOut").find("[data-id='" + array[i].task_id + "']").find('.task-people');
-    //add names of those assigned to .task-people paragraph
-    var outputText = $taskMatch.html();
-    //add formatting if more than one person added
-    if (outputText !== '') {
-      outputText += ', ';
-    } // end if
-    outputText += array[i].first_name + ' ' + array[i].last_name;
-    $taskMatch.html(outputText);
-  } // end for
-}; // end displayTaskAssignments
 
 var getTasks = function() {
   console.log('in getTasks');
