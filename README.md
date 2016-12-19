@@ -40,4 +40,5 @@ Here are the specific components for the challenge:
 
 ###STRETCH GOALS
 * [ ] Add server-side validation
-* [ ] Host app on Heroku
+* [x] Host app on Heroku
+  * [View On Heroku](https://infinite-sea-14106.herokuapp.com/)
