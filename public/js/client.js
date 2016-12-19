@@ -66,6 +66,17 @@ var controlAssignButtonVisibility = function(){
   } // end else/if
 }; // end controlAssignButtonVisibility
 
+var createPersonObject = function(e) {
+  e.preventDefault();
+  console.log('in createPersonObject');
+  var objectToSend = {
+    first_name: $('#firstNameIn').val(),
+    last_name: $('#lastNameIn').val()
+  }; // end objectToSend
+  console.log(objectToSend);
+  postNewPerson(objectToSend);
+}; // end createPersonObject
+
 var createTask = function(e){
   e.preventDefault();
   console.log('in createTask');
@@ -148,6 +159,8 @@ var disableSelectedPeople = function(){
 
 var displayPeopleOnSelects = function(array){
   console.log('in displayPeopleOnSelects');
+  //clear .people-select's
+  $('.people-select').html('<option value="" selected disabled>Choose a Person:</option>');
   //populate last people-select with options
   for (var i = 0; i < array.length; i++) {
     var id = array[i].id;
@@ -267,6 +280,26 @@ var init = function() {
   $(document).on('click', '.btn-delete-select', deletePeopleSelect);
   $(document).on('mouseover', '.people-select', disableSelectedPeople);
 }; // end init
+
+var postNewPerson = function(object) {
+  //posts new person to server to add to database
+  console.log('in postNewPerson');
+  $.ajax({
+    type: 'POST',
+    url: '/people',
+    data: object,
+    success: function(response) {
+      console.log(response);
+      getAllPeople();
+      //clear input values
+      $('#firstNameIn').val('');
+      $('#lastNameIn').val('');
+    }, // end success
+    error: function(err) {
+      console.log(err);
+    } // end error
+  }); // end ajax
+}; // end postNewPerson
 
 var postTask = function(object) {
   console.log('in postTask');
