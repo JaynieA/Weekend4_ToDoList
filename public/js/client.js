@@ -178,6 +178,16 @@ var disableSelectedPeople = function(){
   } // end if
 }; // end disableSelectedPeople
 
+var displayListsOnSelect = function(array) {
+  console.log('in displayListsOnSelect');
+  console.log(array);
+  for (var i = 0; i < array.length; i++) {
+    var id = array[i].id;
+    var name = array[i].name;
+    $('.list-select').append('<option value="'+ id +'-list">'+ name + '</option>');
+  } // end for
+}; // end displayListsOnSelect
+
 var displayPeopleOnSelects = function(array){
   console.log('in displayPeopleOnSelects');
   //populate last people-select with options
@@ -251,6 +261,7 @@ var getAllLists = function() {
     url: '/list',
     success: function(response) {
       console.log(response.lists);
+      displayListsOnSelect(response.lists);
     },
     error: function(err) {
       console.log(err);
