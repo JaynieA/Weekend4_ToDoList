@@ -34,9 +34,6 @@ Here are the specific components for the challenge:
   * [x] Add people logic
   * [ ] Add lists logic
 
-
-![ERD](public/images/to-do.png?raw=true "ERD")
-
 <p align="center">
   <img src="public/images/to-do.png?raw=true" alt="ERD"/>
 </p>
