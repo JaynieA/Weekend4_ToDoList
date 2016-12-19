@@ -66,7 +66,31 @@ var controlAssignButtonVisibility = function(){
   } // end else/if
 }; // end controlAssignButtonVisibility
 
+var validateListIn = function(){
+  console.log('in validateListIn');
+  if ($('#listIn').val() !== '') {
+    return true;
+  } else if ($('#listIn').val() === '') {
+    $('#listIn').addClass('bad-input');
+    return false;
+  } // end else if
+}; // end validateListIn
+
+var createListObject = function(e) {
+  //prevent page refresh
+  e.preventDefault();
+  console.log('in createListObject');
+  //reset any remaining 'bad-input' classes
+  $('#listIn').removeClass('bad-input');
+
+  //proceed if form validated
+  if (validateListIn()) {
+    console.log('proceed with creating object, form has been validated');
+  }
+}; // end createListObject
+
 var createPersonObject = function(e) {
+  //prevent page refresh
   e.preventDefault();
   console.log('in createPersonObject');
   //reset any remaining 'bad-input' classes
@@ -285,13 +309,6 @@ var init = function() {
   $(document).on('click', '#ListToggleButton', showClosestForm);
 }; // end init
 
-var showClosestForm = function() {
-  console.log('in slideFormIn');
-  $(this).closest('.form-toggle').hide();
-  $(this).closest('.form-toggle').prev().fadeIn();
-
-}; // end slideFormIn
-
 var postNewPerson = function(object) {
   //posts new person to server to add to database
   console.log('in postNewPerson');
@@ -343,6 +360,12 @@ var resetAddTaskForm = function() {
     $('.people-select:last').remove();
   } // end if
 }; // end resetAddTaskForm
+
+var showClosestForm = function() {
+  console.log('in slideFormIn');
+  $(this).closest('.form-toggle').hide();
+  $(this).closest('.form-toggle').prev().fadeIn();
+}; // end slideFormIn
 
 var updateCompletedAppearance = function(num) {
   console.log('in updateCompleteOnDOM:');
