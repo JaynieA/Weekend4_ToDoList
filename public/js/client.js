@@ -388,6 +388,7 @@ var resetAddTaskForm = function() {
   //reset bad input appearances
   $('#taskIn').removeClass('bad-input');
   $('.people-select').removeClass('bad-input');
+  $('.list-select').removeClass('bad-input');
   $('.people-select').prop('selectedIndex',0);
   //reset number of selects to one
   if ($('.people-select').length > 1) {

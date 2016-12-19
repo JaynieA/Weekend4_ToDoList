@@ -41,7 +41,7 @@ router.post('/', function(req, res) {
       //if there was an error, log it
       console.log(err);
     } else {
-      client.query('INSERT INTO task (name) VALUES ($1) RETURNING id', [req.body.task], function(err, result){
+      client.query('INSERT INTO task (name, list_id) VALUES ($1, $2) RETURNING id', [req.body.task, req.body.list_id], function(err, result){
         if (err) {
           console.log(err);
         } else {
