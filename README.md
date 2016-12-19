@@ -39,6 +39,7 @@ Here are the specific components for the challenge:
 </p>
 
 ###STRETCH GOALS
+* [x] Style app to be responsive
 * [ ] Add server-side validation
 * [x] Host app on Heroku
   * [View On Heroku](https://infinite-sea-14106.herokuapp.com/)

@@ -170,7 +170,7 @@ input {
   margin: 30px auto 30px auto;
   border: 2px solid #AAB3C2;
   border-radius: 4px;
-  width: 35%; }
+  width: 38%; }
 
 .tasks-header {
   background-color: #81CFD1;
@@ -278,5 +278,12 @@ input {
   background-color: rgba(255, 0, 0, 0.4) !important; }
   .bad-input.bad-input::-webkit-input-placeholder {
     color: #fff; }
+
+@media only screen and (max-width: 1350px) {
+  #tasksOut {
+    width: 50%; } }
+@media only screen and (max-width: 1070px) {
+  #tasksOut {
+    width: 90%; } }
 
 /*# sourceMappingURL=style.css.map */
