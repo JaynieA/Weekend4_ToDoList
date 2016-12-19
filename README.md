@@ -35,6 +35,8 @@ Here are the specific components for the challenge:
 * [ ] Adjust the logic, app performance, and database schema to match that of the following ERD:
   * [x] Add people logic
   * [ ] Add lists logic
+
+  
 ![ERD](public/images/to-do.png?raw=true "ERD")
 
 ###STRETCH GOALS
