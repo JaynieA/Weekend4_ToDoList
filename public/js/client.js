@@ -103,8 +103,9 @@ var createTask = function(e){
   console.log('in createTask');
   $('.people-select').removeClass('bad-input');
   var people = [];
-  //if validatePeopleAssigned returns true, continue
-  if (validatePeopleAssigned()) {
+  //if validatePeopleAssigned and validateListChoice both return true, continue
+  if (validatePeopleAssigned() && validateListChoice()) {
+    var list_id = $('.list-select').val().split('-')[0];
     //get values of all selected names
     $('.people-select').each(function() {
       var person = $(this).val();
@@ -116,8 +117,10 @@ var createTask = function(e){
     if (validateTaskIn()){
       var objectToSend = {
         task: $('#taskIn').val(),
-        people: people
+        people: people,
+        list_id: list_id
       }; // end objectToSend
+      console.log(objectToSend);
       //post task to server for insertion into database
       postTask(objectToSend);
     } // end if
@@ -180,7 +183,6 @@ var disableSelectedPeople = function(){
 
 var displayListsOnSelect = function(array) {
   console.log('in displayListsOnSelect');
-  console.log(array);
   for (var i = 0; i < array.length; i++) {
     var id = array[i].id;
     var name = array[i].name;
@@ -415,6 +417,16 @@ var updateCompletedAppearance = function(num) {
     $clone_completed.hide().appendTo("#tasksOut").fadeIn('slow');
   }); // end fadeOut
 }; // end updateCompleteOnDOM
+
+var validateListChoice = function() {
+  console.log('in validateListChoice');
+  if ($('.list-select').val() === '' || $('.list-select').val() === null) {
+    $('.list-select').addClass('bad-input');
+    return false;
+  } else {
+    return true;
+  } // end else
+}; // end validateListChoice
 
 var validateListIn = function(){
   console.log('in validateListIn');
