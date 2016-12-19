@@ -23,6 +23,9 @@ label {
   margin-bottom: .5rem;
   font-size: 20px;
 }
+form {
+  margin-bottom: 15px;
+}
 input {
   display: inline-block;
   padding: .5rem .8rem;
@@ -93,6 +96,17 @@ input {
   &:hover,
   &:focus {
     color: $accentColor;
+  }
+}
+.btn-add-people-selects {
+  background-color: $accentYellow;
+  &:hover,
+  &:focus {
+    border-color: $accentYellow;
+    color: $accentYellow;
+    i {
+      color: $accentYellow;
+    }
   }
 }
 .delete-task-btn {

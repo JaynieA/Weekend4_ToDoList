@@ -20,6 +20,9 @@ label {
   margin-bottom: .5rem;
   font-size: 20px; }
 
+form {
+  margin-bottom: 15px; }
+
 input {
   display: inline-block;
   padding: .5rem .8rem;
@@ -83,6 +86,14 @@ input {
     margin-right: 5px; }
   .btn-text:hover, .btn-text:focus {
     color: #81CFD1; }
+
+.btn-add-people-selects {
+  background-color: #DFD67B; }
+  .btn-add-people-selects:hover, .btn-add-people-selects:focus {
+    border-color: #DFD67B;
+    color: #DFD67B; }
+    .btn-add-people-selects:hover i, .btn-add-people-selects:focus i {
+      color: #DFD67B; }
 
 .delete-task-btn {
   background-color: #DA6667;
