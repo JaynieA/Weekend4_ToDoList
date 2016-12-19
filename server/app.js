@@ -20,5 +20,8 @@ app.use('/task', task);
 var people = require('../routes/people');
 app.use('/people', people);
 
+var list = require('../routes/list');
+app.use('/list', list);
+
 var joined = require('../routes/joined');
 app.use('/joined', joined);

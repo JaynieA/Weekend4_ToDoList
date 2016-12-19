@@ -78,6 +78,7 @@ var createListObject = function(e) {
       name: $('#listIn').val()
     }; // end objectToSend
     console.log(objectToSend);
+    postNewList(objectToSend);
   } // end if
 }; // end createListObject
 
@@ -299,6 +300,21 @@ var init = function() {
   $(document).on('mouseover', '.people-select', disableSelectedPeople);
   $(document).on('click', '#ListToggleButton', showClosestForm);
 }; // end init
+
+var postNewList = function(object) {
+  console.log('in postNewList');
+  $.ajax({
+    type: 'POST',
+    url: '/list',
+    data: object,
+    success: function(response) {
+      console.log(response);
+    }, // end success
+    error: function(err) {
+      console.log(err);
+    } // end error
+  }); // end ajax
+}; // end postNewList
 
 var postNewPerson = function(object) {
   //posts new person to server to add to database
