@@ -29,6 +29,16 @@ var checkForTasks = function(array) {
   } // end else
 }; // end checkForTasks
 
+var checkIfEmpty = function(num) {
+  console.log('in checkIfEmpty');
+  if (num < 1) {
+    $('#tasksOut h2').text('You are all caught up!');
+    $('#tasksOut').append('<img src="images/hero.jpg" alt="You are a hero">');
+    var $img = $('#tasksOut').children().last();
+    $img.addClass('tasks-complete-img');
+  } // end if
+}; // end checkIfEmpty
+
 var completeTask = function() {
   console.log('in completeTask');
   var objectToSend = {
@@ -147,9 +157,10 @@ var deleteTask = function(object) {
       success: function(response) {
         //store the id of the deleted task
         var num = response;
-        //hide the deleted task from DOM using data attribute
+        //remove the deleted task from DOM using data attribute
         var $deleted = $('#tasksOut').find("[data-id='" + num + "']");
-        $deleted.hide();
+        $deleted.remove();
+        checkIfEmpty($('.task').length);
       }, // end success
       error: function(err) {
         console.log(err);
