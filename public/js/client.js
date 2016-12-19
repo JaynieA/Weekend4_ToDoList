@@ -244,6 +244,20 @@ var getConfirmation = function() {
   }); // end .btn-confirm click
 }; // end getConfirmation
 
+var getAllLists = function() {
+  console.log('in getAllLists');
+  $.ajax({
+    type: 'GET',
+    url: '/list',
+    success: function(response) {
+      console.log(response.lists);
+    },
+    error: function(err) {
+      console.log(err);
+    } // end error
+  }); // end ajax
+}; // end getAllLists
+
 var getAllPeople = function() {
   console.log('in getAllPeople');
   $.ajax({
@@ -290,7 +304,7 @@ var getTasks = function() {
 var init = function() {
   console.log('in init');
   getTasks();
-  // getPeopleForTasks();
+  getAllLists();
   getAllPeople();
   //event listeners
   $(document).on('click', '.complete-task-btn', completeTask);
