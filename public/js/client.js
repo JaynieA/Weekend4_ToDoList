@@ -69,12 +69,17 @@ var controlAssignButtonVisibility = function(){
 var createPersonObject = function(e) {
   e.preventDefault();
   console.log('in createPersonObject');
-  var objectToSend = {
-    first_name: $('#firstNameIn').val(),
-    last_name: $('#lastNameIn').val()
-  }; // end objectToSend
-  console.log(objectToSend);
-  postNewPerson(objectToSend);
+  //reset any remaining 'bad-input' classes
+  $('.person-in').removeClass('bad-input');
+  //Proceed if form validated
+  if (validatePersonIn()) {
+    var objectToSend = {
+      first_name: $('#firstNameIn').val(),
+      last_name: $('#lastNameIn').val()
+    }; // end objectToSend
+    console.log(objectToSend);
+    postNewPerson(objectToSend);
+  } // end if
 }; // end createPersonObject
 
 var createTask = function(e){
@@ -369,6 +374,21 @@ var validatePeopleAssigned = function() {
     return false;
   } // end else
 }; // end validatePeopleAssigned
+
+var validatePersonIn = function() {
+  console.log('in validatePersonIn');
+  if ($('#firstNameIn').val() !== '' && $('#lastNameIn').val() !== '') {
+    return true;
+  } else if ($('#firstNameIn').val() === '' && $('#lastNameIn').val() === '') {
+    $('.person-in').addClass('bad-input');
+  } else if ($('#firstNameIn').val() === '') {
+    $('#firstNameIn').addClass('bad-input');
+    return false;
+  } else if ($('#lastNameIn').val() === '') {
+    $('#lastNameIn').addClass('bad-input');
+    return false;
+  } // end else if
+}; // end validatePersonIn
 
 var validateTaskIn = function() {
   //validate input: return false if empty, else true
