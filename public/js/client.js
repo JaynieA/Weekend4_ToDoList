@@ -183,13 +183,17 @@ var disableSelectedPeople = function(){
 
 var displayListAssignments = function(array) {
   console.log('in displayListAssignments');
-  console.log(array);
   for (var i = 0; i < array.length; i++) {
     var list_id = array[i].list_id;
     var list_name = array[i].list_name;
     var task_id = array[i].task_id;
-    console.log('list id:',list_id, 'list_name:', list_name, 'task_id:', task_id);
-  }
+    //find which div to put it inside of using the task id
+    var $match = $("#tasksOut").find("[data-id='" + task_id + "']");
+    $match.attr('data-listId', list_id);
+    //insert list_name as text on list element
+    var $list = $match.find('.task-list');
+    $list.text(list_name);
+  } // end for
 }; // end displayListAssignments
 
 var displayListsOnSelect = function(array) {
@@ -247,7 +251,7 @@ var displayTasks = function(array) {
     //append container to hold which people are assigned to the task:
     $taskDiv.append('<p class="task-people sub-task-text"></p>');
     //append container to hold which list the task belongs to:
-    $taskDiv.append('<p class="task-list sub-task-text">On List:</p>');
+    $taskDiv.append('<p class="task-list sub-task-text"></p>');
   } // end for
 }; // end displayTasks
 
