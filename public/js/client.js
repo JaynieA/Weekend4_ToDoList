@@ -379,6 +379,8 @@ var postNewList = function(object) {
     data: object,
     success: function(response) {
       console.log(response);
+      //clear input
+      $('#listIn').val('');
     }, // end success
     error: function(err) {
       console.log(err);

@@ -22,7 +22,7 @@ CREATE TABLE people_task (
 
 CREATE TABLE list (
 	id SERIAL PRIMARY KEY ,
-	name VARCHAR(30) UNIQUE
+	name VARCHAR(30)
 );
 
 ALTER TABLE task
