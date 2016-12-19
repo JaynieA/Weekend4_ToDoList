@@ -37,6 +37,10 @@ Here are the specific components for the challenge:
 
 ![ERD](public/images/to-do.png?raw=true "ERD")
 
+<p align="center">
+  <img src="public/images/to-do.png?raw=true" alt="ERD"/>
+</p>
+
 ###STRETCH GOALS
 * [ ] Add server-side validation
 * [ ] Host app on Heroku
