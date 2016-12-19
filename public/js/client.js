@@ -66,27 +66,19 @@ var controlAssignButtonVisibility = function(){
   } // end else/if
 }; // end controlAssignButtonVisibility
 
-var validateListIn = function(){
-  console.log('in validateListIn');
-  if ($('#listIn').val() !== '') {
-    return true;
-  } else if ($('#listIn').val() === '') {
-    $('#listIn').addClass('bad-input');
-    return false;
-  } // end else if
-}; // end validateListIn
-
 var createListObject = function(e) {
   //prevent page refresh
   e.preventDefault();
   console.log('in createListObject');
   //reset any remaining 'bad-input' classes
   $('#listIn').removeClass('bad-input');
-
   //proceed if form validated
   if (validateListIn()) {
-    console.log('proceed with creating object, form has been validated');
-  }
+    var objectToSend = {
+      name: $('#listIn').val()
+    }; // end objectToSend
+    console.log(objectToSend);
+  } // end if
 }; // end createListObject
 
 var createPersonObject = function(e) {
@@ -101,7 +93,6 @@ var createPersonObject = function(e) {
       first_name: $('#firstNameIn').val(),
       last_name: $('#lastNameIn').val()
     }; // end objectToSend
-    console.log(objectToSend);
     postNewPerson(objectToSend);
   } // end if
 }; // end createPersonObject
@@ -383,6 +374,16 @@ var updateCompletedAppearance = function(num) {
     $clone_completed.hide().appendTo("#tasksOut").fadeIn('slow');
   }); // end fadeOut
 }; // end updateCompleteOnDOM
+
+var validateListIn = function(){
+  console.log('in validateListIn');
+  if ($('#listIn').val() !== '') {
+    return true;
+  } else if ($('#listIn').val() === '') {
+    $('#listIn').addClass('bad-input');
+    return false;
+  } // end else if
+}; // end validateListIn
 
 var validatePeopleAssigned = function() {
   console.log('in validatePeopleAssigned');
