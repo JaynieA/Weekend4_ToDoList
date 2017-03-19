@@ -1,4 +1,4 @@
-#Weekend Challenge 4: The To Do List
+# Weekend Challenge 4: The To Do List
 
 This weekend is all about showing us that you have a handle on each of the different parts of the full stack. For this weekends challenge, you are going to create a 'TO DO' application. This is the type of application that is very common to tackle when learning a new language, which makes it extremely valuable to work through for the first time, since chances are good that at some point in your career you will tackle this type of application, but in another language.
 
@@ -14,7 +14,7 @@ Here are the specific components for the challenge:
 * [x] Make sure that you also show us your best styling chops. We encourage you to try and write pure CSS rather than use Bootstrap.
 * [x] Additionally, please include some way to recreate your initial database schema. This can be a .sql file with `CREATE TABLE` statements or you can create your schema automatically when your app loads.
 
-##Technologies:
+## Technologies:
 * JavaScript
 * jQuery
 * Express.js
@@ -23,13 +23,13 @@ Here are the specific components for the challenge:
 * HTML5
 * PosgreSQL
 
-###HARD MODE
+### HARD MODE
 * [x] In whatever fashion you would like, create an 'are you sure: yes / no' option when deleting a task. Once again, you can interrupt this however you would like.
 
-###PRO MODE
+### PRO MODE
 * [x] Adjust the logic so that completed tasks are brought to the bottom of the page, where the remaining tasks left to complete are brought to the top of the list.
 
-###SUPER PRO MODE
+### SUPER PRO MODE
 * [x] Adjust the logic, app performance, and database schema to match that of the following ERD:
   * [x] Add people logic
   * [x] Add lists logic
@@ -38,12 +38,12 @@ Here are the specific components for the challenge:
   <img src="public/images/to-do.png?raw=true" alt="ERD"/>
 </p>
 
-###STRETCH GOALS
+### STRETCH GOALS
 * [x] Style app to be responsive
 * [x] Host app on Heroku
   * [View On Heroku](https://infinite-sea-14106.herokuapp.com/)
 * [ ] Add server-side validation
-* [ ] Style tasks to display by the list they belong to 
+* [ ] Style tasks to display by the list they belong to
 
-###DEMO
+### DEMO
 ![Demo](public/images/demo.gif?raw=true "DemoGif")
